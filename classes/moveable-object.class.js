@@ -1,20 +1,21 @@
 class MoveableObject {
+  x = 120;
+  y = 250;
 
-    x = 120;
-    y = 250;
-    img;
+  height = 150;
+  width = 50;
 
-    //loadImage('img/test.png')
+  img;
 
-    loadImage(path) {
+  //loadImage('img/test.png')
 
-        this.img = new Image(); // this.img = document.getElementByIdlement("image"); <img id= "image" srx>
-        this.img.src = path;
-    }
+  loadImage(path) {
+    this.img = new Image(); // this.img = document.getElementByIdlement("image"); <img id= "image" srx>
+    this.img.src = path;
+  }
 
-    moveRight() {
-        console.log("Moving right");
-    }
-
+  moveRight() {
+    console.log("Moving right");
+  }
 }
 
