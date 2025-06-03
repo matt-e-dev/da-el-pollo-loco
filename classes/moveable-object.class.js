@@ -1,7 +1,7 @@
 class MoveableObject {
 
     x = 120;
-    y = 400;
+    y = 250;
     img;
 
     //loadImage('img/test.png')
