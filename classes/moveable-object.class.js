@@ -3,7 +3,7 @@ class MoveableObject {
   y = 250;
 
   height = 150;
-  width = 50;
+  width = 100;
 
   img;
 
