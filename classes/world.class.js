@@ -20,42 +20,18 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.ctx.drawImage(
-      this.character.img,
-      this.character.x,
-      this.character.y,
-      this.character.width,
-      this.character.height
-    );
+    this.addToMap(this.character);
 
     this.clouds.forEach((cloud) => {
-      this.ctx.drawImage(
-        cloud.img,
-        cloud.x,
-        cloud.y,
-        cloud.width,
-        cloud.height
-      );
+    this.addToMap(cloud);
     });
 
     this.enemies.forEach((enemy) => {
-      this.ctx.drawImage(
-        enemy.img,
-        enemy.x,
-        enemy.y,
-        enemy.width,
-        enemy.height
-      );
+      this.addToMap(enemy);
     });
 
     this.backgroundObjects.forEach((backgroundObject) => {
-      this.ctx.drawImage(
-        backgroundObject.img,
-        backgroundObject.x,
-        backgroundObject.y,
-        backgroundObject.width,
-        backgroundObject.height
-      );
+    this.addToMap(backgroundObject);
     });
     
     // draw is being called recursively
@@ -63,6 +39,12 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  // mo = moveable object
+  // This method is used to add any moveable object to the map
+  addToMap(mo) {
+    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
   }
   
 }
