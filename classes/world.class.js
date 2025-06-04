@@ -2,7 +2,12 @@ class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
   clouds = [new Cloud(), new Cloud()];
-  chicken = new Chicken();
+  backgroundObjects = [
+
+    new BackgroundObject("img/5_background/layers/3_third_layer/1.png"),
+  ]
+
+
   canvas;
   ctx;
 
@@ -42,10 +47,22 @@ class World {
         enemy.height
       );
     });
+
+    this.backgroundObjects.forEach((backgroundObject) => {
+      this.ctx.drawImage(
+        backgroundObject.img,
+        backgroundObject.x,
+        backgroundObject.y,
+        backgroundObject.width,
+        backgroundObject.height
+      );
+    });
+    
     // draw is being called recursively
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });
   }
+  
 }
