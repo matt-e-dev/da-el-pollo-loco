@@ -3,7 +3,7 @@ class World {
   enemies = [new Chicken(), new Chicken(), new Chicken()];
   clouds = [new Cloud(), new Cloud()];
   backgroundObjects = [
-    new BackgroundObject("img/5_background/layers/3_third_layer/1.png"),
+    new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 0),
   ];
 
   canvas;
@@ -18,10 +18,14 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    // order matters, so we draw the background first, why? 
+    // because of ctx.clearRect, which clears the whole canvas and then we draws everything again
+
+    this.addObjectsToMap(this.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.clouds);
     this.addObjectsToMap(this.enemies);
-    this.addObjectsToMap(this.backgroundObjects);
+
 
     // draw is being called recursively
     let self = this;
