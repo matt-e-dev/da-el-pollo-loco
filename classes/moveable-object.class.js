@@ -7,9 +7,7 @@ class MoveableObject {
 
   img;
   imageCache = {};
-
-
-
+  currentImage = 0;
 
   //loadImage('img/test.png')
 
