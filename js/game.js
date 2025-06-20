@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();
 
 
 function init() {
@@ -15,3 +16,7 @@ function init() {
   console.log('my enemies are', world.enemies);
  
 }
+
+window.addEventListener("keydown", (e) => {
+  console.log("Key pressed:", e.key);
+});
