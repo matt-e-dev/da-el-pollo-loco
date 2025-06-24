@@ -25,12 +25,14 @@ class Character extends MoveableObject {
   animate() {
     setInterval(() => {
         if (this.world.keyboard.RIGHT) {
-            this.x += this.speed;
+          this.x += this.speed;
+          this.otherDirection = false;
             console.log("Moving RIGHT");
         }
         if (this.world.keyboard.LEFT) {
             this.x -= this.speed;
-            console.log("Moving LEFT");
+          console.log("Moving LEFT");
+          this.otherDirection = true;
         }
     }, 1000 / 60);
 
