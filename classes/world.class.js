@@ -12,6 +12,7 @@ class World {
   canvas;
   ctx;
   keyboard;
+  camera_x = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -31,10 +32,14 @@ class World {
     // order matters, so we draw the background first, why?
     // because of ctx.clearRect, which clears the whole canvas and then we draws everything again
 
+    this.ctx.translate(this.camera_x, 0);
+
     this.addObjectsToMap(this.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.clouds);
     this.addObjectsToMap(this.enemies);
+
+    this.ctx.translate(-this.camera_x, 0);
 
     // draw is being called recursively
     let self = this;
