@@ -29,12 +29,12 @@ class Character extends MoveableObject {
           this.otherDirection = false;
             console.log("Moving RIGHT");
         }
-        if (this.world.keyboard.LEFT) {
+        if (this.world.keyboard.LEFT && this.x > 0) {
             this.x -= this.speed;
           console.log("Moving LEFT");
           this.otherDirection = true;
         }
-      this.world.camera_x = -this.x;
+      this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
     setInterval(() => {
