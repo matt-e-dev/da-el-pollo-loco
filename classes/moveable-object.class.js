@@ -1,6 +1,4 @@
 class MoveableObject {
-
-
   height = 150;
   width = 100;
 
@@ -16,17 +14,16 @@ class MoveableObject {
 
   applyGravity() {
     setInterval(() => {
-     
-      if (this.y < 180) {
+      if (this.isAboveGround()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration; // Increase speedY to simulate gravity
       }
-   })
- }
+    });
+  }
 
-  
-  
-
+  isAboveGround() {
+    return this.y < 180; // Assuming 180 is the ground level
+  }
 
   //loadImage('img/test.png')
 
@@ -59,8 +56,4 @@ class MoveableObject {
     this.img = this.imageCache[path];
     this.currentImage++;
   }
-
 }
-
-
-
