@@ -1,7 +1,7 @@
 class Character extends MoveableObject {
 
   height = 250;
-  y = 180;
+  y = 80;
   x = 120;
   speed = 10;
   IMAGES_WALKING = [
@@ -21,6 +21,7 @@ class Character extends MoveableObject {
     this.loadImage("img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_WALKING);
     this.animate();
+    this.applyGravity();
   }
 
   animate() {

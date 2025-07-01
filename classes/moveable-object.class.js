@@ -11,6 +11,23 @@ class MoveableObject {
   speed = 0.15;
   otherDirection = false;
 
+  speedY = 0; // Vertical speed for gravity
+  acceleration = 0.5; // Acceleration due to gravity
+
+  applyGravity() {
+    setInterval(() => {
+     
+      if (this.y < 180) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration; // Increase speedY to simulate gravity
+      }
+   })
+ }
+
+  
+  
+
+
   //loadImage('img/test.png')
 
   loadImage(path) {
