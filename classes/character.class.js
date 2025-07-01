@@ -1,6 +1,8 @@
 class Character extends MoveableObject {
 
-  height = 150;
+  height = 250;
+  y = 180;
+  x = 120;
   speed = 10;
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
@@ -18,7 +20,6 @@ class Character extends MoveableObject {
     super();
     this.loadImage("img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_WALKING);
-    this.y = 300;
     this.animate();
   }
 
