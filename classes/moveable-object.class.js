@@ -34,7 +34,8 @@ class MoveableObject {
   }
 
   moveRight() {
-    console.log("Moving right");
+      this.x += this.speed;
+      
   }
 
   loadImages(arr) {
@@ -46,9 +47,13 @@ class MoveableObject {
   }
 
   moveLeft() {
-    setInterval(() => {
       this.x -= this.speed;
-    }, 1000 / 60);
+      
+    
+  }
+
+  jump() {
+    this.speedY = 15; // Set an initial speed for the jump
   }
 
   playAnimation(images) {
@@ -57,4 +62,6 @@ class MoveableObject {
     this.img = this.imageCache[path];
     this.currentImage++;
   }
-}
+};
+
+
