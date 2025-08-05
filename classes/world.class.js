@@ -5,7 +5,6 @@ class World {
   clouds = level1.clouds;
   backgroundObjects = level1.backgroundObjects;
 
-
   canvas;
   ctx;
   keyboard;
@@ -59,13 +58,18 @@ class World {
       this.ctx.translate(mo.width, 0);
       this.ctx.scale(-1, 1);
       mo.x = mo.x * -1;
-      console.log("Flipping and drawing object:", mo);
     }
     this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
+    this.ctx.beginPath();
+    this.ctx.lineWidth = 5;
+    this.ctx.strokeStyle = "blue";
+    this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
+    this.ctx.stroke();
+
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();
-      console.log("Restored context after flipping.");
     }
   }
 }
