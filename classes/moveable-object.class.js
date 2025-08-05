@@ -1,6 +1,7 @@
 class MoveableObject {
   height = 150;
   width = 100;
+  
 
   img;
   imageCache = {};
