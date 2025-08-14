@@ -84,6 +84,18 @@ class MoveableObject {
       this.x < mo.x &&
       this.y < mo.y + mo.height;
   }
+
+  hit() {
+    this.energy -= 10;
+    if (this.energy < 0) {
+      this.energy = 0;
+      console.log("Character is dead");
+    }
+  }
+
+  isDead() {
+    return this.energy <= 0;
+  }
   
 };
 
