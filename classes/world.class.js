@@ -4,6 +4,7 @@ class World {
   enemies = level1.enemies;
   clouds = level1.clouds;
   backgroundObjects = level1.backgroundObjects;
+  energy = 100;
 
   canvas;
   ctx;
@@ -80,9 +81,10 @@ class World {
 
   checkCollisions() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
+      this.level.enemies.forEach((enemy) => { 
         if (this.character.isColliding(enemy)) {
-          console.log("Collision with character", enemy);
+          this.character.energy -= 10;
+          console.log("Collision with character, enemy", this.character.energy);
         }
       });
     }, 1000);
