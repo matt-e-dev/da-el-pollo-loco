@@ -64,6 +64,8 @@ class MoveableObject {
     }
   }
 
+  
+
   jump() {
     this.speedY = 15; // Set an initial speed for the jump
   }
@@ -74,6 +76,15 @@ class MoveableObject {
     this.img = this.imageCache[path];
     this.currentImage++;
   }
+
+  // character.isColliding(chicken);
+  isColliding(mo) {
+    return this.x + this.width > mo.x &&
+      this.y + this.height > mo.y &&
+      this.x < mo.x &&
+      this.y < mo.y + mo.height;
+  }
+  
 };
 
 

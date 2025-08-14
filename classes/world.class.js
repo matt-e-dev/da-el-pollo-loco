@@ -16,6 +16,7 @@ class World {
     this.keyboard = keyboard;
     this.setWorld();
     this.draw();
+    this.checkCollisions();
   }
 
   setWorld() {
@@ -77,8 +78,14 @@ class World {
     this.ctx.restore();
   }
 
-
-
-
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy)) {
+          console.log("Collision with character", enemy);
+        }
+      });
+    }, 1000);
+  }
 }
 
