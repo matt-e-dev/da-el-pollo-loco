@@ -12,6 +12,8 @@ class MoveableObject {
   speedY = 0; // Vertical speed for gravity
   acceleration = 0.5; // Acceleration due to gravity
 
+  lastHit = 0; // Timestamp of the last hit
+
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -90,11 +92,20 @@ class MoveableObject {
     if (this.energy < 0) {
       this.energy = 0;
       console.log("Character is dead");
+    } else {
+      this.lastHit =  new Date().getTime(); 
     }
   }
 
   isDead() {
     return this.energy <= 0;
+  }
+
+  isHurt() {
+
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000; 
+    return timepassed < 1; 
   }
   
 };
