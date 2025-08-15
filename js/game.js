@@ -42,6 +42,12 @@ window.addEventListener("keydown", (e) => {
       keyboard.SPACE = true;
       console.log("SPACE pressed");
   }
+     if (e.keyCode == 68) {
+       keyboard.D = true;
+       console.log("D pressed");
+     }
+    
+
 });
 
 // ...existing code...
@@ -66,5 +72,10 @@ window.addEventListener("keyup", (e) => {
   if (e.keyCode == 32) {
       keyboard.SPACE = false;
       console.log("SPACE released");
+  }
+    
+  if (e.keyCode == 68) {  // Change from 64 to 68
+      keyboard.D = false;
+      console.log("D released");
   }
 });
