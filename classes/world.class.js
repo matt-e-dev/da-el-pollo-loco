@@ -37,7 +37,11 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    
+    this.ctx.translate(-this.camera_x, 0); //back
+    //space for fixed objects
     this.addToMap(this.statusbar);
+     this.ctx.translate(this.camera_x, 0); //forward
 
     this.ctx.translate(-this.camera_x, 0);
 
