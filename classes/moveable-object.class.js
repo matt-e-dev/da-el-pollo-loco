@@ -1,10 +1,8 @@
-class MoveableObject {
+class MoveableObject extends DrawableObject{
   height = 150;
   width = 100;
 
-  img;
-  imageCache = {};
-  currentImage = 0;
+ 
 
   speed = 0.15;
   otherDirection = false;
@@ -27,46 +25,13 @@ class MoveableObject {
     return this.y < 180; // Assuming 180 is the ground level
   }
 
-  //loadImage('img/test.png')
-
-  loadImage(path) {
-    this.img = new Image(); // this.img = document.getElementByIdlement("image"); <img id= "image" srx>
-    this.img.src = path;
-  }
-
   moveRight() {
     this.x += this.speed;
-  }
-
-  loadImages(arr) {
-    arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
   }
 
   moveLeft() {
     this.x -= this.speed;
   }
-
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-
-  drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken ) {
-
-      ctx.beginPath();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-
-    }
-  }
-
-  
 
   jump() {
     this.speedY = 15; // Set an initial speed for the jump
