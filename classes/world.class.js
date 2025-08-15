@@ -37,7 +37,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
-    
+
     this.ctx.translate(-this.camera_x, 0); //back
     //space for fixed objects
     this.addToMap(this.statusbar);
@@ -91,6 +91,7 @@ class World {
         if (this.character.isColliding(enemy)) {
           this.character.hit();
           console.log("Collision with character, enemy", this.character.energy);
+          this.statusbar.setPercentage(this.character.energy);
         }
       });
     }, 1000);
