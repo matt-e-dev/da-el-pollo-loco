@@ -10,7 +10,7 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
-  statusbar = new StatusBar();
+  healthStatusBar = new HealthStatusBar();
   bottlesStatusBar = new BottlesStatusBar();
   coinStatusBar = new CoinStatusBar();
   throwableObjects = [];
@@ -46,7 +46,7 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0); //back
     //space for fixed objects
-    this.addToMap(this.statusbar);
+    this.addToMap(this.healthStatusBar);
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
      this.ctx.translate(this.camera_x, 0); //forward
@@ -112,7 +112,7 @@ class World {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
         console.log("Collision with character, enemy", this.character.energy);
-        this.statusbar.setPercentage(this.character.energy);
+        this.healthStatusBar.setPercentage(this.character.energy);
       }
     });
   }
