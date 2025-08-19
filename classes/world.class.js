@@ -109,6 +109,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowableObjects();
+      this.checkCollectableCollisions();
     }, 200);
   }
 
@@ -131,5 +132,21 @@ class World {
       }
     });
   }
-}
 
+  checkCollectableCollisions() {
+    this.collectableObjects.forEach((collectable, index) => {
+      if (this.character.isColliding(collectable) && !collectable.collected) {
+        collectable.collect();
+        if (collectable instanceof Coin) {
+          this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
+        } else if (collectable instanceof Bottle) {
+          this.bottlesStatusBar.setPercentage(
+            this.bottlesStatusBar.percentage + 20
+          );
+        }
+        // Remove collected item from array
+        this.collectableObjects.splice(index, 1);
+      }
+    });
+  }
+}
