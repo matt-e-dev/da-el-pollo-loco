@@ -1,4 +1,33 @@
+@font-face {
+    font-family: 'tacobox';
+    src: url("../assets/fonts/TACOBOX_.TTF") format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+         
+}  
+
+body {
+ 
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:100vh;
+    background-image: url("assets/background.png");
+    background-position: center;
+
+}
+
+h1 {
+
+    font-family: 'tacobox';
+    font-size: 44px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+
+
+}
+
 #canvas {
 
     background-color: black;
+    border-radius:24px;
 }
+
