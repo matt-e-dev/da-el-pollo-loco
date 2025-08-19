@@ -20,6 +20,7 @@ class World {
     this.setWorld();
     this.draw();
     this.checkCollisions();
+    this.run();
   }
 
   setWorld() {
@@ -88,16 +89,20 @@ class World {
     this.ctx.restore();
   }
 
-  checkCollisions() {
+  run() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => { 
-        if (this.character.isColliding(enemy)) {
-          this.character.hit();
-          console.log("Collision with character, enemy", this.character.energy);
-          this.statusbar.setPercentage(this.character.energy);
-        }
-      });
-    }, 1000);
+      this.checkCollisions();
+    }, 200);
+  }
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+        console.log("Collision with character, enemy", this.character.energy);
+        this.statusbar.setPercentage(this.character.energy);
+      }
+    });
   }
 }
 

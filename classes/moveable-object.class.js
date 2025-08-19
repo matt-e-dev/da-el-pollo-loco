@@ -2,8 +2,6 @@ class MoveableObject extends DrawableObject{
   height = 150;
   width = 100;
 
- 
-
   speed = 0.15;
   otherDirection = false;
 
@@ -11,6 +9,7 @@ class MoveableObject extends DrawableObject{
   acceleration = 0.5; // Acceleration due to gravity
 
   lastHit = 0; // Timestamp of the last hit
+
 
   applyGravity() {
     setInterval(() => {
@@ -22,7 +21,13 @@ class MoveableObject extends DrawableObject{
   }
 
   isAboveGround() {
-    return this.y < 180; // Assuming 180 is the ground level
+    if (this instanceof ThrowableObject) {
+      return true;
+    } else {
+      return this.y < 180; // Assuming 180 is the ground level
+    }
+      
+ 
   }
 
   moveRight() {
