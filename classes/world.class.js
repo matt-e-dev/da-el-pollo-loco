@@ -13,6 +13,17 @@ class World {
   healthStatusBar = new HealthStatusBar();
   bottlesStatusBar = new BottlesStatusBar();
   coinStatusBar = new CoinStatusBar();
+  // In your level file or constructor, add:
+  collectableObjects = [
+    new Coin(350, 320),
+    new Bottle(480, 275),
+    new Coin(720, 290),
+    new Bottle(880, 180),
+    new Coin(1200, 310),
+    new Bottle(1450, 260),
+    new Coin(1680, 300),
+    new Bottle(1920, 220),
+  ];
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -43,13 +54,14 @@ class World {
     this.addObjectsToMap(this.level.enemies);
 
     this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.collectableObjects);
 
     this.ctx.translate(-this.camera_x, 0); //back
     //space for fixed objects
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
-     this.ctx.translate(this.camera_x, 0); //forward
+    this.ctx.translate(this.camera_x, 0); //forward
 
     this.ctx.translate(-this.camera_x, 0);
 
@@ -102,8 +114,11 @@ class World {
 
   checkThrowableObjects() {
     if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-      this.throwableObjects.push(bottle)
+      let bottle = new ThrowableObject(
+        this.character.x + 100,
+        this.character.y + 100
+      );
+      this.throwableObjects.push(bottle);
     }
   }
 
