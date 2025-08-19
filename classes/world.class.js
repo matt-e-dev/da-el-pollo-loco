@@ -25,6 +25,7 @@ class World {
     new Bottle(1920, 220),
   ];
   throwableObjects = [];
+  bottleCount = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -114,12 +115,14 @@ class World {
   }
 
   checkThrowableObjects() {
-    if (this.keyboard.D) {
+    if (this.keyboard.D && this.bottleCount > 0) {
       let bottle = new ThrowableObject(
         this.character.x + 100,
         this.character.y + 100
       );
       this.throwableObjects.push(bottle);
+      this.bottleCount--; // Decrease bottle count
+      this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100); 
     }
   }
 
@@ -140,9 +143,8 @@ class World {
         if (collectable instanceof Coin) {
           this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
         } else if (collectable instanceof Bottle) {
-          this.bottlesStatusBar.setPercentage(
-            this.bottlesStatusBar.percentage + 20
-          );
+          this.bottleCount++; 
+          this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
         }
         // Remove collected item from array
         this.collectableObjects.splice(index, 1);
