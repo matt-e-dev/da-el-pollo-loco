@@ -3,7 +3,8 @@ class Endboss extends MoveableObject {
   width = 300;
   y = -30;
   x = 1400;
-  isAttacking = false; // Add this property
+  isAttacking = false; 
+  speed = 5; 
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
     "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -38,6 +39,7 @@ class Endboss extends MoveableObject {
     setInterval(() => {
       if (this.isAttacking) {
         this.playAnimation(this.IMAGES_ATTACK);
+        this.moveLeft();
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }
