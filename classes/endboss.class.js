@@ -1,8 +1,9 @@
 class Endboss extends MoveableObject {
-
-    height = 500;
-    width = 300;
-    y = -30;
+  height = 500;
+  width = 300;
+  y = -30;
+  x = 1400;
+  isAttacking = false; // Add this property
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
     "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -14,19 +15,37 @@ class Endboss extends MoveableObject {
     "img/4_enemie_boss_chicken/2_alert/G12.png",
   ];
 
+  IMAGES_ATTACK = [
+    "img/4_enemie_boss_chicken/3_attack/G13.png",
+    "img/4_enemie_boss_chicken/3_attack/G14.png",
+    "img/4_enemie_boss_chicken/3_attack/G15.png",
+    "img/4_enemie_boss_chicken/3_attack/G16.png",
+    "img/4_enemie_boss_chicken/3_attack/G17.png",
+    "img/4_enemie_boss_chicken/3_attack/G18.png",
+    "img/4_enemie_boss_chicken/3_attack/G19.png",
+    "img/4_enemie_boss_chicken/3_attack/G20.png",
+  ];
+
   constructor() {
     super();
-      this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
-    
-      this.x = 1400;
-    this.animate();
+    this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
     this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_ATTACK);
+    this.animate();
   }
 
   animate() {
     setInterval(() => {
-   this.playAnimation(this.IMAGES_WALKING);
+      if (this.isAttacking) {
+        this.playAnimation(this.IMAGES_ATTACK);
+      } else {
+        this.playAnimation(this.IMAGES_WALKING);
+      }
     }, 100);
+  }
+
+  startAttack() {
+    this.isAttacking = true;
   }
 }
 

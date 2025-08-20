@@ -27,7 +27,6 @@ class MoveableObject extends DrawableObject{
       return this.y < 180; // Assuming 180 is the ground level
     }
       
- 
   }
 
   moveRight() {

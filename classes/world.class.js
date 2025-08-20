@@ -36,6 +36,7 @@ class World {
     this.draw();
     this.checkCollisions();
     this.run();
+   
   }
 
   setWorld() {
@@ -54,6 +55,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.triggerEndbossAttack();
 
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.collectableObjects);
@@ -63,7 +65,7 @@ class World {
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
-    this.addBossStatusBar();
+    this.showBossStatusBar();
     this.ctx.translate(this.camera_x, 0); //forward
 
     this.ctx.translate(-this.camera_x, 0);
@@ -75,11 +77,18 @@ class World {
     });
   }
 
-  addBossStatusBar() {
-    if (this.character.x >= 1000) {
-        this.addToMap(this.bossStatusBar);
+  showBossStatusBar() {
+    const endboss = this.level.enemies.find((e) => e instanceof Endboss);
+    if (this.character.x >= 1000 && endboss) {
+      this.addToMap(this.bossStatusBar);
     }
-  
+  }
+
+  triggerEndbossAttack() {
+    const endboss = this.level.enemies.find((e) => e instanceof Endboss);
+    if (this.character.x >= 1000 && endboss) {
+      endboss.startAttack();
+    }
   }
 
   addObjectsToMap(objects) {
@@ -131,7 +140,7 @@ class World {
       );
       this.throwableObjects.push(bottle);
       this.bottleCount--; // Decrease bottle count
-      this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100); 
+      this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
     }
   }
 
@@ -152,7 +161,7 @@ class World {
         if (collectable instanceof Coin) {
           this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
         } else if (collectable instanceof Bottle) {
-          this.bottleCount++; 
+          this.bottleCount++;
           this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
         }
         // Remove collected item from array
