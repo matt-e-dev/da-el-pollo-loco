@@ -13,6 +13,7 @@ class World {
   healthStatusBar = new HealthStatusBar();
   bottlesStatusBar = new BottlesStatusBar();
   coinStatusBar = new CoinStatusBar();
+  bossStatusBar = new BossStatusBar();
   // In your level file or constructor, add:
   collectableObjects = [
     new Coin(350, 320),
@@ -62,6 +63,7 @@ class World {
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
+    this.addBossStatusBar();
     this.ctx.translate(this.camera_x, 0); //forward
 
     this.ctx.translate(-this.camera_x, 0);
@@ -71,6 +73,13 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  addBossStatusBar() {
+    if (this.character.x >= 1000) {
+        this.addToMap(this.bossStatusBar);
+    }
+  
   }
 
   addObjectsToMap(objects) {
