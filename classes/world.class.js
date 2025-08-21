@@ -36,7 +36,6 @@ class World {
     this.draw();
     this.checkCollisions();
     this.run();
-   
   }
 
   setWorld() {
@@ -77,17 +76,17 @@ class World {
     });
   }
 
-  showBossStatusBar() {
-    const endboss = this.level.enemies.find((e) => e instanceof Endboss);
-    if (this.character.x >= 1000 && endboss) {
-      this.addToMap(this.bossStatusBar);
-    }
-  }
-
   triggerEndbossAttack() {
     const endboss = this.level.enemies.find((e) => e instanceof Endboss);
     if (this.character.x >= 1000 && endboss) {
       endboss.startAttack();
+    }
+  }
+  
+  showBossStatusBar() {
+    const endboss = this.level.enemies.find((e) => e instanceof Endboss);
+    if (endboss && endboss.isAttacking) {
+      this.addToMap(this.bossStatusBar);
     }
   }
 
