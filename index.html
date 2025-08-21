@@ -10,7 +10,12 @@
 
     <h1>El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="game-container">
+        <canvas id="canvas" width="720" height="480"></canvas>
+    </div>
+    <div id="end-screen" style="display: none;">
+        <h1 id="end-message"></h1>
+    </div>
 
     <script src="classes/drawable-objects.class.js"></script>
     <script src="classes/moveable-object.class.js"></script>
@@ -31,5 +36,6 @@
     <script src="classes/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+
 </body>
 </html>

@@ -14,7 +14,6 @@ class World {
   bottlesStatusBar = new BottlesStatusBar();
   coinStatusBar = new CoinStatusBar();
   bossStatusBar = new BossStatusBar();
-  // In your level file or constructor, add:
   collectableObjects = [
     new Coin(350, 320),
     new Bottle(480, 275),
@@ -34,7 +33,6 @@ class World {
     this.keyboard = keyboard;
     this.setWorld();
     this.draw();
-    this.checkCollisions();
     this.run();
   }
 
@@ -44,10 +42,6 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    // order matters, so we draw the background first, why?
-    // because of ctx.clearRect, which clears the whole canvas and then we draws everything again
-
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.level.backgroundObjects);
@@ -60,16 +54,13 @@ class World {
     this.addObjectsToMap(this.collectableObjects);
 
     this.ctx.translate(-this.camera_x, 0); //back
-    //space for fixed objects
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
     this.showBossStatusBar();
     this.ctx.translate(this.camera_x, 0); //forward
-
     this.ctx.translate(-this.camera_x, 0);
 
-    // draw is being called recursively
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
@@ -96,16 +87,12 @@ class World {
     });
   }
 
-  // mo = moveable object
-  // This method is used to add any moveable object to the map
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -129,6 +116,7 @@ class World {
       this.checkThrowableObjects();
       this.checkCollectableCollisions();
       this.checkBossCollidingWithThrowableObject();
+      this.checkGameEnd(); // <-- Added here
     }, 200);
   }
 
@@ -148,7 +136,6 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit(10);
-        console.log("Collision with character, enemy", this.character.energy);
         this.healthStatusBar.setPercentage(this.character.energy);
       }
     });
@@ -158,9 +145,7 @@ class World {
     this.throwableObjects.forEach((bottle) => {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
       if (endboss && bottle.isCollidingForEndboss(endboss)) {
-        console.log("Bottle collided with endboss!");
         endboss.hit(40);
-        console.log("Collision with endboss, bottle", endboss.energy);
         this.bossStatusBar.setPercentage(endboss.energy);
       }
     });
@@ -176,9 +161,33 @@ class World {
           this.bottleCount++;
           this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
         }
-        // Remove collected item from array
         this.collectableObjects.splice(index, 1);
       }
     });
+  }
+
+  //win or lose endscreen conditions
+
+  checkGameEnd() {
+
+    if (this.character.isDead && this.character.isDead()) {
+      this.lose();
+    }
+    const endboss = this.level.enemies.find((e) => e instanceof Endboss);
+    if (endboss && endboss.energy <= 0) {
+      this.win();
+    }
+  }
+
+  win() {
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("end-screen").style.display = "block";
+    document.getElementById("end-message").textContent = "You Win!";
+  }
+
+  lose() {
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("end-screen").style.display = "block";
+    document.getElementById("end-message").textContent = "You Lose!";
   }
 }
