@@ -1,4 +1,4 @@
-class MoveableObject extends DrawableObject{
+class MoveableObject extends DrawableObject {
   height = 150;
   width = 100;
 
@@ -9,7 +9,6 @@ class MoveableObject extends DrawableObject{
   acceleration = 0.5; // Acceleration due to gravity
 
   lastHit = 0; // Timestamp of the last hit
-
 
   applyGravity() {
     setInterval(() => {
@@ -26,7 +25,6 @@ class MoveableObject extends DrawableObject{
     } else {
       return this.y < 180; // Assuming 180 is the ground level
     }
-      
   }
 
   moveRight() {
@@ -50,10 +48,24 @@ class MoveableObject extends DrawableObject{
 
   // character.isColliding(chicken);
   isColliding(mo) {
-    return this.x + this.width > mo.x &&
+    return (
+      this.x + this.width > mo.x &&
       this.y + this.height > mo.y &&
       this.x < mo.x &&
-      this.y < mo.y + mo.height;
+      this.y < mo.y + mo.height
+    );
+  }
+
+  // Increased padding for endboss collision detection with throwableobject bottle
+
+  isCollidingForEndboss(mo) {
+    const padding = 30;
+    return (
+      this.x + this.width > mo.x - padding &&
+      this.y + this.height > mo.y - padding &&
+      this.x < mo.x + mo.width + padding &&
+      this.y < mo.y + mo.height + padding
+    );
   }
 
   hit() {
@@ -62,7 +74,7 @@ class MoveableObject extends DrawableObject{
       this.energy = 0;
       console.log("Character is dead");
     } else {
-      this.lastHit =  new Date().getTime(); 
+      this.lastHit = new Date().getTime();
     }
   }
 
@@ -71,12 +83,10 @@ class MoveableObject extends DrawableObject{
   }
 
   isHurt() {
-
     let timepassed = new Date().getTime() - this.lastHit;
-    timepassed = timepassed / 1000; 
-    return timepassed < 1; 
+    timepassed = timepassed / 1000;
+    return timepassed < 1;
   }
-  
 };
 
 

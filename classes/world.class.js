@@ -82,7 +82,7 @@ class World {
       endboss.startAttack();
     }
   }
-  
+
   showBossStatusBar() {
     const endboss = this.level.enemies.find((e) => e instanceof Endboss);
     if (endboss && endboss.isAttacking) {
@@ -128,6 +128,7 @@ class World {
       this.checkCollisions();
       this.checkThrowableObjects();
       this.checkCollectableCollisions();
+      this.checkBossCollidingWithThrowableObject();
     }, 200);
   }
 
@@ -149,6 +150,18 @@ class World {
         this.character.hit();
         console.log("Collision with character, enemy", this.character.energy);
         this.healthStatusBar.setPercentage(this.character.energy);
+      }
+    });
+  }
+
+  checkBossCollidingWithThrowableObject() {
+    this.throwableObjects.forEach((bottle) => {
+      const endboss = this.level.enemies.find((e) => e instanceof Endboss);
+      if (endboss && bottle.isCollidingForEndboss(endboss)) {
+        console.log("Bottle collided with endboss!");
+        endboss.hit();
+        console.log("Collision with endboss, bottle", endboss.energy);
+        this.bossStatusBar.setPercentage(endboss.energy);
       }
     });
   }
