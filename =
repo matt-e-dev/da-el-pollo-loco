@@ -1,5 +1,0 @@
-Already up to date.
-[main a8aeb6e] endboss now changed to attack animation as soon as character is 1000 on x
- 4 files changed, 45 insertions(+), 17 deletions(-)
- create mode 100644 =
-a8aeb6e endboss now changed to attack animation as soon as character is 1000 on x

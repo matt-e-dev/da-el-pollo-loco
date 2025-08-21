@@ -78,7 +78,7 @@ class World {
 
   triggerEndbossAttack() {
     const endboss = this.level.enemies.find((e) => e instanceof Endboss);
-    if (this.character.x >= 1000 && endboss) {
+    if (this.character.x >= 3000 && endboss) {
       endboss.startAttack();
     }
   }
