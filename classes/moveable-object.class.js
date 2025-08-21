@@ -68,11 +68,10 @@ class MoveableObject extends DrawableObject {
     );
   }
 
-  hit() {
-    this.energy -= 10;
+  hit(damage) {
+    this.energy -= damage;
     if (this.energy < 0) {
       this.energy = 0;
-      console.log("Character is dead");
     } else {
       this.lastHit = new Date().getTime();
     }

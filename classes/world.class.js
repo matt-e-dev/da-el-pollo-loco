@@ -147,7 +147,7 @@ class World {
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit();
+        this.character.hit(10);
         console.log("Collision with character, enemy", this.character.energy);
         this.healthStatusBar.setPercentage(this.character.energy);
       }
@@ -159,7 +159,7 @@ class World {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
       if (endboss && bottle.isCollidingForEndboss(endboss)) {
         console.log("Bottle collided with endboss!");
-        endboss.hit();
+        endboss.hit(40);
         console.log("Collision with endboss, bottle", endboss.energy);
         this.bossStatusBar.setPercentage(endboss.energy);
       }
