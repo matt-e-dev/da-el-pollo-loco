@@ -38,7 +38,6 @@ class Character extends MoveableObject {
     "img/2_character_pepe/4_hurt/H-41.png",
     "img/2_character_pepe/4_hurt/H-42.png",
     "img/2_character_pepe/4_hurt/H-43.png",
-   
   ];
 
   currentImage = 0;
@@ -55,6 +54,12 @@ class Character extends MoveableObject {
     this.applyGravity();
   }
 
+  playJumpSound() {
+    let jumpSound = new Audio("assets/audio/jump.mp3");
+    jumpSound.volume = 0.25;
+    jumpSound.play();
+  }
+
   animate() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -68,6 +73,7 @@ class Character extends MoveableObject {
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
+        this.playJumpSound();
       }
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
@@ -75,9 +81,7 @@ class Character extends MoveableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-    
-      }
-      else if (this.isHurt()) {
+      } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       }
       if (this.isAboveGround()) {
