@@ -34,8 +34,6 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-// ...existing code...
-
 window.addEventListener("keyup", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = false;
@@ -55,6 +53,62 @@ window.addEventListener("keyup", (e) => {
   if (e.keyCode == 68) {
     keyboard.D = false;
   }
-    
-
 });
+
+// mobile controls based on the position of the images on the canvas
+
+canvas = document.getElementById("canvas");
+
+canvas.addEventListener("mousedown", function (e) {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  if (x >= 20 && x <= 80 && y >= 400 && y <= 460) {
+    keyboard.LEFT = true;
+  }
+  if (x >= 90 && x <= 150 && y >= 400 && y <= 460) {
+    keyboard.RIGHT = true;
+  }
+  if (x >= 650 && x <= 710 && y >= 400 && y <= 460) {
+    keyboard.SPACE = true;
+  }
+});
+
+canvas.addEventListener("mouseup", function (e) {
+  keyboard.LEFT = false;
+  keyboard.RIGHT = false;
+  keyboard.SPACE = false;
+});
+
+canvas.addEventListener(
+  "touchstart",
+  function (e) {
+    const rect = canvas.getBoundingClientRect();
+    for (let i = 0; i < e.touches.length; i++) {
+      const x = e.touches[i].clientX - rect.left;
+      const y = e.touches[i].clientY - rect.top;
+
+      if (x >= 20 && x <= 80 && y >= 400 && y <= 460) {
+        keyboard.LEFT = true;
+      }
+      if (x >= 90 && x <= 150 && y >= 400 && y <= 460) {
+        keyboard.RIGHT = true;
+      }
+      if (x >= 650 && x <= 710 && y >= 400 && y <= 460) {
+        keyboard.SPACE = true;
+      }
+    }
+  },
+  false
+);
+
+canvas.addEventListener(
+  "touchend",
+  function (e) {
+    keyboard.LEFT = false;
+    keyboard.RIGHT = false;
+    keyboard.SPACE = false;
+  },
+  false
+);
