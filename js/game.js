@@ -4,11 +4,19 @@ let keyboard = new Keyboard();
 
 function init() {
   canvas = document.getElementById("canvas");
+  initLevel();
   world = new World(canvas, keyboard);
+
 
   // ctx.drawImage(world.character.img, 20, 20, 50, 150);
 
   // ctx.drawImage(world.enemies.img, 20, 20, 50, 150);
+}
+
+ function startGame() {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('game-container').style.display = 'block';
+  init();
 }
 
 window.addEventListener("keydown", (e) => {});

@@ -5,6 +5,7 @@ class World {
   clouds = level1.clouds;
   backgroundObjects = level1.backgroundObjects;
   energy = 100;
+  gameLost = false;
 
   canvas;
   ctx;
@@ -188,12 +189,21 @@ class World {
     document.getElementById("game-container").style.display = "none";
     document.getElementById("end-screen").style.display = "block";
     document.getElementById("end-message").textContent = "You Win!";
+        if (!this.gameWon) {
+          this.playGameWonSound();
+          this.gameWon = true;
+        }
   }
 
   lose() {
     document.getElementById("game-container").style.display = "none";
     document.getElementById("end-screen").style.display = "block";
     document.getElementById("end-message").textContent = "You Lose!";
+    if (!this.gameLost) {
+      this.playGameLostSound();
+      this.gameLost = true;
+    }
+    
   }
 
   playCharacterHurtSound() {
@@ -218,6 +228,18 @@ class World {
     let hurtSound = new Audio("assets/audio/boss-hurt.mp3");
     hurtSound.volume = 0.1;
     hurtSound.play();
+  }
+
+  playGameLostSound() {
+    let lostSound = new Audio("assets/audio/game-lost.mp3");
+    lostSound.volume = 0.1;
+    lostSound.play();
+  }
+
+  playGameWonSound() {
+    let wonSound = new Audio("assets/audio/game-won.mp3");
+    wonSound.volume = 0.1;
+    wonSound.play();
   }
 
 }

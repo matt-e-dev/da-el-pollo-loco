@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
-     <link rel="icon" type="image/x-icon" href="img/4_enemie_boss_chicken/3_attack/G18.png">
+    <link rel="icon" type="image/x-icon" href="img/4_enemie_boss_chicken/3_attack/G18.png">
 </head>
-<body onload="init()">
+<body>
 
     <h1>El Pollo Loco</h1>
 
-    <div id="game-container">
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <button id="start-btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
     <div id="end-screen" style="display: none;">
         <h1 id="end-message"></h1>
+       
     </div>
 
     <script src="classes/drawable-objects.class.js"></script>
