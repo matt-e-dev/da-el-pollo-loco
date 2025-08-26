@@ -148,6 +148,7 @@ class World {
     this.throwableObjects.forEach((bottle) => {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
       if (endboss && bottle.isCollidingForEndboss(endboss)) {
+        this.playBossHurtSound();
         endboss.hit(40);
         this.bossStatusBar.setPercentage(endboss.energy);
       }
@@ -159,9 +160,10 @@ class World {
       if (this.character.isColliding(collectable) && !collectable.collected) {
         collectable.collect();
         if (collectable instanceof Coin) {
+          this.playCoinCollectedSound();
           this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
         } else if (collectable instanceof Bottle) {
-          this.playCollectingBottleSound();
+          this.playBottleCollectedSound();
           this.bottleCount++;
           this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
         }
@@ -200,9 +202,22 @@ class World {
     hurtSound.play();
   }
 
-  playCollectingBottleSound() {
+  playBottleCollectedSound() {
     let collectSound = new Audio("assets/audio/bottle-collected.mp3");
     collectSound.volume = 0.1;
     collectSound.play();
   }
+
+  playCoinCollectedSound() {
+    let collectSound = new Audio("assets/audio/coin-collected.mp3");
+    collectSound.volume = 0.1;
+    collectSound.play();
+  }
+
+  playBossHurtSound() {
+    let hurtSound = new Audio("assets/audio/boss-hurt.mp3");
+    hurtSound.volume = 0.1;
+    hurtSound.play();
+  }
+
 }
