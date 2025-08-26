@@ -14,6 +14,7 @@ class World {
   bottlesStatusBar = new BottlesStatusBar();
   coinStatusBar = new CoinStatusBar();
   bossStatusBar = new BossStatusBar();
+  mobileControls = new MobileControls();
   collectableObjects = [
     new Coin(350, 320),
     new Bottle(480, 275),
@@ -58,6 +59,7 @@ class World {
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
     this.showBossStatusBar();
+    this.addToMap(this.mobileControls);
     this.ctx.translate(this.camera_x, 0); //forward
     this.ctx.translate(-this.camera_x, 0);
 
