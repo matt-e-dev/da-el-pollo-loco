@@ -26,6 +26,14 @@ class MobileControls extends DrawableObject {
         width: 60,
         height: 60,
       },
+      {
+        name: "throw",
+        img: this.loadButtonImage("assets/icons/throw-icon.png"),
+        x: 580,
+        y: 400,
+        width: 60,
+        height: 60,
+      },
     ];
   }
 

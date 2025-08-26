@@ -73,12 +73,16 @@ canvas.addEventListener("mousedown", function (e) {
   if (x >= 650 && x <= 710 && y >= 400 && y <= 460) {
     keyboard.SPACE = true;
   }
+  if (x >= 580 && x <= 640 && y >= 400 && y <= 460) {
+    keyboard.D = true;
+  }
 });
 
 canvas.addEventListener("mouseup", function (e) {
   keyboard.LEFT = false;
   keyboard.RIGHT = false;
   keyboard.SPACE = false;
+  keyboard.D = false;
 });
 
 canvas.addEventListener(
@@ -98,6 +102,9 @@ canvas.addEventListener(
       if (x >= 650 && x <= 710 && y >= 400 && y <= 460) {
         keyboard.SPACE = true;
       }
+      if (x >= 580 && x <= 640 && y >= 400 && y <= 460) {
+        keyboard.D = true;
+      }
     }
   },
   false
@@ -109,6 +116,7 @@ canvas.addEventListener(
     keyboard.LEFT = false;
     keyboard.RIGHT = false;
     keyboard.SPACE = false;
+    keyboard.D = false;
   },
   false
 );
