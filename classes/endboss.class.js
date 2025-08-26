@@ -6,7 +6,7 @@ class Endboss extends MoveableObject {
   isAttacking = false;
   speed = 5;
   energy = 100;
-  
+
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
     "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -68,5 +68,12 @@ class Endboss extends MoveableObject {
 
   startAttack() {
     this.isAttacking = true;
+    // this.playSurpriseSound();
   }
+
+  // playSurpriseSound() {
+  //   let surpriseSound = new Audio("assets/audio/surprise.mp3");
+  //   surpriseSound.volume = 0.1;
+  //   surpriseSound.play();
+  // }
 }

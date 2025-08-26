@@ -56,7 +56,7 @@ class Character extends MoveableObject {
 
   playJumpSound() {
     let jumpSound = new Audio("assets/audio/jump.mp3");
-    jumpSound.volume = 0.25;
+    jumpSound.volume = 0.1;
     jumpSound.play();
   }
 

@@ -138,6 +138,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit(10);
+        this.playCharacterHurtSound();
         this.healthStatusBar.setPercentage(this.character.energy);
       }
     });
@@ -160,6 +161,7 @@ class World {
         if (collectable instanceof Coin) {
           this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
         } else if (collectable instanceof Bottle) {
+          this.playCollectingBottleSound();
           this.bottleCount++;
           this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
         }
@@ -171,7 +173,6 @@ class World {
   //win or lose endscreen conditions
 
   checkGameEnd() {
-
     if (this.character.isDead && this.character.isDead()) {
       this.lose();
     }
@@ -191,5 +192,17 @@ class World {
     document.getElementById("game-container").style.display = "none";
     document.getElementById("end-screen").style.display = "block";
     document.getElementById("end-message").textContent = "You Lose!";
+  }
+
+  playCharacterHurtSound() {
+    let hurtSound = new Audio("assets/audio/character-hurt.mp3");
+    hurtSound.volume = 0.1;
+    hurtSound.play();
+  }
+
+  playCollectingBottleSound() {
+    let collectSound = new Audio("assets/audio/bottle-collected.mp3");
+    collectSound.volume = 0.1;
+    collectSound.play();
   }
 }
