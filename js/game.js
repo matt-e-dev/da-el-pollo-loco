@@ -14,8 +14,8 @@ function init() {
 }
 
  function startGame() {
-  document.getElementById('start-screen').style.display = 'none';
-  document.getElementById('game-container').style.display = 'block';
+  document.getElementById('start_screen').style.display = 'none';
+  document.getElementById('game_container').style.display = 'block';
   init();
 }
 

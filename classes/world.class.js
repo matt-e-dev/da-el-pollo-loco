@@ -186,7 +186,7 @@ class World {
   }
 
   win() {
-    document.getElementById("game-container").style.display = "none";
+    document.getElementById("game_container").style.display = "none";
     document.getElementById("end-screen").style.display = "block";
     document.getElementById("end-message").textContent = "You Win!";
         if (!this.gameWon) {
@@ -196,7 +196,7 @@ class World {
   }
 
   lose() {
-    document.getElementById("game-container").style.display = "none";
+    document.getElementById("game_container").style.display = "none";
     document.getElementById("end-screen").style.display = "block";
     document.getElementById("end-message").textContent = "You Lose!";
     if (!this.gameLost) {
