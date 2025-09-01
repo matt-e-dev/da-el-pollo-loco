@@ -184,11 +184,12 @@ class World {
       this.win();
     }
   }
+
   win() {
-    document.getElementById("game_container").style.display = "none";
-    document.getElementById("end_screen").style.display = "block";
-    document.getElementById("win_message").style.display = "block";
-    document.getElementById("lose_message").style.display = "none";
+    document.getElementById("game_container").classList.add("d-none");
+    document.getElementById("end_screen").classList.remove("d-none");
+    document.getElementById("win_message").classList.remove("d-none");
+    document.getElementById("lose_message").classList.add("d-none");
     if (!this.gameWon) {
       this.playGameWonSound();
       this.gameWon = true;
@@ -196,15 +197,16 @@ class World {
   }
 
   lose() {
-    document.getElementById("game_container").style.display = "none";
-    document.getElementById("end_screen").style.display = "block";
-    document.getElementById("lose_message").style.display = "block";
-    document.getElementById("win_message").style.display = "none";
+    document.getElementById("game_container").classList.add("d-none");
+    document.getElementById("end_screen").classList.remove("d-none");
+    document.getElementById("lose_message").classList.remove("d-none");
+    document.getElementById("win_message").classList.add("d-none");
     if (!this.gameLost) {
       this.playGameLostSound();
       this.gameLost = true;
     }
   }
+  
   playCharacterHurtSound() {
     let hurtSound = new Audio("assets/audio/character-hurt.mp3");
     hurtSound.volume = 0.1;
