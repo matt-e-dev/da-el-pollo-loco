@@ -17,7 +17,9 @@ function init() {
   document.getElementById('start_screen').style.display = 'none';
   document.getElementById('game_container').style.display = 'block';
   init();
-}
+ }
+
+ 
 
 window.addEventListener("keydown", (e) => {});
 

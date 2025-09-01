@@ -184,28 +184,27 @@ class World {
       this.win();
     }
   }
-
   win() {
     document.getElementById("game_container").style.display = "none";
-    document.getElementById("end-screen").style.display = "block";
-    document.getElementById("end-message").textContent = "You Win!";
-        if (!this.gameWon) {
-          this.playGameWonSound();
-          this.gameWon = true;
-        }
+    document.getElementById("end_screen").style.display = "block";
+    document.getElementById("win_message").style.display = "block";
+    document.getElementById("lose_message").style.display = "none";
+    if (!this.gameWon) {
+      this.playGameWonSound();
+      this.gameWon = true;
+    }
   }
 
   lose() {
     document.getElementById("game_container").style.display = "none";
-    document.getElementById("end-screen").style.display = "block";
-    document.getElementById("end-message").textContent = "You Lose!";
+    document.getElementById("end_screen").style.display = "block";
+    document.getElementById("lose_message").style.display = "block";
+    document.getElementById("win_message").style.display = "none";
     if (!this.gameLost) {
       this.playGameLostSound();
       this.gameLost = true;
     }
-    
   }
-
   playCharacterHurtSound() {
     let hurtSound = new Audio("assets/audio/character-hurt.mp3");
     hurtSound.volume = 0.1;
@@ -241,5 +240,4 @@ class World {
     wonSound.volume = 0.1;
     wonSound.play();
   }
-
 }

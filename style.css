@@ -48,6 +48,19 @@ h1 {
     border:none;
 }
 
+.end-screen {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    max-width:720px;
+    max-height:480px;
+    width:720px;
+    height:480px;
+
+}
+
 .game-description {
 
     font-family: 'tacobox', sans-serif;

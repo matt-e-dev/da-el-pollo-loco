@@ -22,7 +22,7 @@
                         <li>Move Right: D</li>
                         <li>Jump: W</li>
                         <li>Throw Bottle: Space</li>
-                    </ul>
+                    </ul>   
                 </div>
                 <div class="game-rules">
                     <h2>Game Rules</h2>
@@ -35,10 +35,12 @@
             </div>
     </div>
 
-     <div id="end_screen" style="display: none;">
-        <h1 id="end-message"></h1>
-       
-    </div>
+   <div id="end_screen" class="end-screen" style="display: none;">
+    <h1 id="win_message" style="display: none;">You Win!</h1>
+    <h1 id="lose_message" style="display: none;">You Lose!</h1>
+</div>
+
+   
 
     <div id="game_container" style="display: none;">
         <canvas id="canvas" width="720" height="480"></canvas>
