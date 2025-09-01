@@ -22,7 +22,10 @@ h1 {
     font-size: 44px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
 
+}
 
+.d-none {
+    display: none;
 }
 
 #canvas {
@@ -31,6 +34,65 @@ h1 {
     border-radius:24px;
     display: block;
 }
+
+.start-screen {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    max-width:720px;
+    max-height:480px;
+    width:720px;
+    height:480px;
+    background-color: transparent;
+    border:none;
+}
+
+.game-description {
+
+    font-family: 'tacobox', sans-serif;
+    display: flex;
+    align-items: center;
+    gap:48px;
+    max-width:100%;
+    height: auto;
+    background-color: transparent;
+    border-radius:24px;
+    padding:24px;
+    font-size:24px;
+}
+
+.game-rules,
+.game-controls {
+
+    max-width:100%;
+    border-radius:24px;
+}
+
+.game-rules:hover,
+.game-controls:hover {
+
+    background-color: red;;
+}
+
+
+
+.btn {
+    font-family: 'tacobox', sans-serif;
+    font-size: 32px;
+    padding: 16px 48px;
+    border: none;
+    border-radius:24px;
+    background-color: transparent;
+}
+
+.btn:hover, .btn:focus {
+    transform: scale(1.05);
+    background-color: red;
+
+}
+
+
 
 @media only screen and (max-width:720px) {
     canvas {

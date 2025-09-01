@@ -12,17 +12,37 @@
     <h1>El Pollo Loco</h1>
 
     <!-- Start Screen -->
-    <div id="start-screen">
-        <button id="start-btn" onclick="startGame()">Start Game</button>
+    <div id="start-screen" class="start-screen">
+        <button id="start-btn" class="btn" onclick="startGame()">Start Game</button>
+        <div class="game-description">
+            <div class="game-controls">
+                <h2>Game Controls</h2>
+                <ul>
+                    <li>Move Left: A</li>
+                    <li>Move Right: D</li>
+                    <li>Jump: W</li>
+                    <li>Throw Bottle: Space</li>
+                </ul>
+            </div>
+            <div class="game-rules">
+                <h2>Game Rules</h2>
+                <ul>
+                    <li>Rule 1: Do not let the chickens escape!</li>
+                    <li>Rule 2: Collect all the coins!</li>
+                    <li>Rule 3: Use your bottles wisely!</li>
+            </ul>
+        </div>
     </div>
 
-    <div id="game-container" style="display: none;">
-        <canvas id="canvas" width="720" height="480"></canvas>
-    </div>
-    <div id="end-screen" style="display: none;">
+     <div id="end-screen" class="d-none"">
         <h1 id="end-message"></h1>
        
     </div>
+
+    <div id="game-container" class="d-none">
+        <canvas id="canvas" width="720" height="480"></canvas>
+    </div>
+   
 
     <script src="classes/drawable-objects.class.js"></script>
     <script src="classes/moveable-object.class.js"></script>
