@@ -62,10 +62,6 @@ class Endboss extends MoveableObject {
       } else if (this.isAttacking) {
         this.playAnimation(this.IMAGES_ATTACK);
         this.moveLeft();
-        if(!this.battleMusicPlayed) {
-          this.playBossBattleMusic();
-          this.battleMusicPlayed = true;
-        }
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }
@@ -79,16 +75,11 @@ class Endboss extends MoveableObject {
       this.surpriseSoundPlayed = true;
     }
   }
-
   playSurpriseSound() {
     let surpriseSound = new Audio("assets/audio/surprise.mp3");
     surpriseSound.volume = 0.1;
     surpriseSound.play();
   }
 
-  playBossBattleMusic() {
-    let battleMusic = new Audio("assets/audio/boss-battle.mp3");
-    battleMusic.volume = 0.1;
-    battleMusic.play();
-  }
+
 }

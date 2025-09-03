@@ -5,8 +5,6 @@ class World {
   clouds = level1.clouds;
   backgroundObjects = level1.backgroundObjects;
   energy = 100;
-  gameLost = false;
-
   canvas;
   ctx;
   keyboard;
@@ -165,13 +163,12 @@ class World {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
       if (endboss && bottle.isCollidingForEndboss(endboss)) {
         this.playBossHurtSound();
-        endboss.hit(25);
+        endboss.hit(5);
         this.bossStatusBar.setPercentage(endboss.energy);
       }
     });
   }
 
-  
 
   checkCollectableCollisions() {
     this.collectableObjects.forEach((collectable, index) => {
