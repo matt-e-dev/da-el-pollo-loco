@@ -16,26 +16,41 @@ class World {
   coinStatusBar = new CoinStatusBar();
   bossStatusBar = new BossStatusBar();
   mobileControls = new MobileControls();
-  collectableObjects = [
-    new Coin(350, 320),
-    new Bottle(480, 275),
-    new Coin(720, 290),
-    new Bottle(880, 180),
-    new Coin(1200, 310),
-    new Bottle(1450, 260),
-    new Coin(1680, 300),
-    new Bottle(1920, 220),
-  ];
   throwableObjects = [];
   bottleCount = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
+    this.randomizeCollectablePositions();
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.setWorld();
     this.draw();
     this.run();
+  }
+
+  randomizeCollectablePositions() {
+    this.collectableObjects = [];
+    this.generateCoins();
+    this.generateBottles();
+  }
+
+  generateCoins() {
+    // Generate 8 coins at random positions
+    for (let i = 0; i < 8; i++) {
+      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
+      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
+      this.collectableObjects.push(new Coin(randomX, randomY));
+    }
+  }
+
+  generateBottles() {
+    // Generate 8 bottles at random positions
+    for (let i = 0; i < 8; i++) {
+      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
+      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
+      this.collectableObjects.push(new Bottle(randomX, randomY));
+    }
   }
 
   setWorld() {
@@ -206,7 +221,6 @@ class World {
       this.gameLost = true;
     }
   }
-
 
   playCharacterHurtSound() {
     let hurtSound = new Audio("assets/audio/character-hurt.mp3");
