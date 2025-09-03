@@ -16,7 +16,7 @@ class MoveableObject extends DrawableObject {
         this.y -= this.speedY;
         this.speedY -= this.acceleration; // Increase speedY to simulate gravity
       }
-    });
+    }, 20);
   }
 
   isAboveGround() {
