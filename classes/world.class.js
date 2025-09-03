@@ -132,7 +132,8 @@ class World {
       this.checkThrowableObjects();
       this.checkCollectableCollisions();
       this.checkBossCollidingWithThrowableObject();
-      this.checkGameEnd(); // <-- Added here
+      this.checkNormalEnemiesCollidingWithThrowableObject(); // Add this line
+      this.checkGameEnd();
     }, 200);
   }
 
@@ -169,6 +170,30 @@ class World {
     });
   }
 
+  checkNormalEnemiesCollidingWithThrowableObject() {
+    this.throwableObjects.forEach((bottle, bottleIndex) => {
+      this.level.enemies.forEach((enemy, enemyIndex) => {
+        if (
+          !(enemy instanceof Endboss) &&
+          this.isBottleHittingEnemy(bottle, enemy)
+        ) {
+          this.level.enemies.splice(enemyIndex, 1); // Remove enemy
+          this.throwableObjects.splice(bottleIndex, 1); // Remove bottle
+        }
+      });
+    });
+  }
+
+  isBottleHittingEnemy(bottle, enemy) {
+    const padding = 40; // Generous padding for easier hits
+
+    return (
+      bottle.x + bottle.width + padding > enemy.x &&
+      bottle.x - padding < enemy.x + enemy.width &&
+      bottle.y + bottle.height + padding > enemy.y &&
+      bottle.y - padding < enemy.y + enemy.height
+    );
+  }
 
   checkCollectableCollisions() {
     this.collectableObjects.forEach((collectable, index) => {
