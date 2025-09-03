@@ -44,11 +44,12 @@ class MobileControls extends DrawableObject {
   }
 
   shouldDisplayControls() {
-    return window.innerWidth <= 760;
+    // Show controls only in landscape orientation
+    return window.innerWidth > window.innerHeight;
   }
 
   draw(ctx) {
-    // Only draw controls if screen width is 760px or smaller
+    // Only draw controls if device is in landscape orientation
     if (this.shouldDisplayControls()) {
       this.buttons.forEach((btn) => {
         if (btn.img.complete && btn.img.naturalWidth > 0) {
