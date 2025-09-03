@@ -19,8 +19,12 @@ function startGame() {
   init();
 }
 
+function restartGame() {
+  location.reload();
+}
+
 function playBackgroundMusic() {
-  let backgroundMusic = new Audio("assets/audio/background-music.mp3");
+  backgroundMusic = new Audio("assets/audio/background-music.mp3"); // Remove 'let'
   backgroundMusic.loop = true;
   backgroundMusic.volume = 0.1;
   backgroundMusic.play();
