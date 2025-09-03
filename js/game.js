@@ -6,28 +6,25 @@ let backgroundMusic;
 function init() {
   canvas = document.getElementById("canvas");
   initLevel();
-  playBackgroundMusic(); 
+  playBackgroundMusic();
   world = new World(canvas, keyboard);
 
   // ctx.drawImage(world.character.img, 20, 20, 50, 150);
   // ctx.drawImage(world.enemies.img, 20, 20, 50, 150);
 }
 
- function startGame() {
-  document.getElementById('start_screen').style.display = 'none';
-  document.getElementById('game_container').style.display = 'block';
+function startGame() {
+  document.getElementById("start_screen").style.display = "none";
+  document.getElementById("game_container").style.display = "block";
   init();
-};
+}
 
-  function playBackgroundMusic() {
-
-    let backgroundMusic = new Audio("assets/audio/background-music.mp3");
-    backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.1;
-    backgroundMusic.play();
-};
-
-  
+function playBackgroundMusic() {
+  let backgroundMusic = new Audio("assets/audio/background-music.mp3");
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = 0.1;
+  backgroundMusic.play();
+}
 
 window.addEventListener("keydown", (e) => {});
 
@@ -106,35 +103,64 @@ canvas.addEventListener("mouseup", function (e) {
 canvas.addEventListener(
   "touchstart",
   function (e) {
+    e.preventDefault();
     const rect = canvas.getBoundingClientRect();
-    for (let i = 0; i < e.touches.length; i++) {
-      const x = e.touches[i].clientX - rect.left;
-      const y = e.touches[i].clientY - rect.top;
 
-      if (x >= 20 && x <= 80 && y >= 400 && y <= 460) {
+    for (let i = 0; i < e.touches.length; i++) {
+      const touch = e.touches[i];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const canvasX = x * scaleX;
+      const canvasY = y * scaleY;
+
+      // Check against your mobile controls button positions
+      if (canvasX >= 20 && canvasX <= 80 && canvasY >= 400 && canvasY <= 460) {
         keyboard.LEFT = true;
       }
-      if (x >= 90 && x <= 150 && y >= 400 && y <= 460) {
+      if (canvasX >= 90 && canvasX <= 150 && canvasY >= 400 && canvasY <= 460) {
         keyboard.RIGHT = true;
       }
-      if (x >= 650 && x <= 710 && y >= 400 && y <= 460) {
-        keyboard.SPACE = true;
+      if (
+        canvasX >= 580 &&
+        canvasX <= 640 &&
+        canvasY >= 400 &&
+        canvasY <= 460
+      ) {
+        keyboard.D = true; // Jump (UP key)
       }
-      if (x >= 580 && x <= 640 && y >= 400 && y <= 460) {
-        keyboard.D = true;
+      if (
+        canvasX >= 650 &&
+        canvasX <= 710 &&
+        canvasY >= 400 &&
+        canvasY <= 460
+      ) {
+        keyboard.SPACE = true;
       }
     }
   },
-  false
+  { passive: false }
 );
 
 canvas.addEventListener(
   "touchend",
   function (e) {
+    e.preventDefault();
+    // Reset all controls when touch ends
     keyboard.LEFT = false;
     keyboard.RIGHT = false;
-    keyboard.SPACE = false;
     keyboard.D = false;
+    keyboard.SPACE = false;
   },
-  false
+  { passive: false }
+);
+
+canvas.addEventListener(
+  "touchmove",
+  function (e) {
+    e.preventDefault();
+  },
+  { passive: false }
 );
