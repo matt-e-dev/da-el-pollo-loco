@@ -43,11 +43,18 @@ class MobileControls extends DrawableObject {
     return img;
   }
 
+  shouldDisplayControls() {
+    return window.innerWidth <= 760;
+  }
+
   draw(ctx) {
-    this.buttons.forEach((btn) => {
-      if (btn.img.complete && btn.img.naturalWidth > 0) {
-        ctx.drawImage(btn.img, btn.x, btn.y, btn.width, btn.height);
-      }
-    });
+    // Only draw controls if screen width is 760px or smaller
+    if (this.shouldDisplayControls()) {
+      this.buttons.forEach((btn) => {
+        if (btn.img.complete && btn.img.naturalWidth > 0) {
+          ctx.drawImage(btn.img, btn.x, btn.y, btn.width, btn.height);
+        }
+      });
+    }
   }
 }
