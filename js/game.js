@@ -1,15 +1,15 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let backgroundMusic;
 
 function init() {
   canvas = document.getElementById("canvas");
   initLevel();
+  playBackgroundMusic(); 
   world = new World(canvas, keyboard);
 
-
   // ctx.drawImage(world.character.img, 20, 20, 50, 150);
-
   // ctx.drawImage(world.enemies.img, 20, 20, 50, 150);
 }
 
@@ -17,9 +17,17 @@ function init() {
   document.getElementById('start_screen').style.display = 'none';
   document.getElementById('game_container').style.display = 'block';
   init();
- }
+};
 
- 
+  function playBackgroundMusic() {
+
+    let backgroundMusic = new Audio("assets/audio/background-music.mp3");
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.1;
+    backgroundMusic.play();
+};
+
+  
 
 window.addEventListener("keydown", (e) => {});
 

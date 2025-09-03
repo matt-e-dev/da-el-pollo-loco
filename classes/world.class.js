@@ -206,7 +206,8 @@ class World {
       this.gameLost = true;
     }
   }
-  
+
+
   playCharacterHurtSound() {
     let hurtSound = new Audio("assets/audio/character-hurt.mp3");
     hurtSound.volume = 0.1;
