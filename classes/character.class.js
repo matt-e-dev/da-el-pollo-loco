@@ -4,6 +4,19 @@ class Character extends MoveableObject {
   x = 120;
   speed = 10;
   energy = 100;
+
+  IMAGES_SLEEPING = [
+    "./img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "./img/2_character_pepe/1_idle/long_idle/I-20.png",
+  ];
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",
@@ -46,6 +59,7 @@ class Character extends MoveableObject {
   constructor() {
     super();
     this.loadImage("img/2_character_pepe/2_walk/W-21.png");
+    this.loadImages(this.IMAGES_SLEEPING);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
@@ -83,15 +97,41 @@ class Character extends MoveableObject {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-      }
-      if (this.isAboveGround()) {
+      } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
-      } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          // Walk animation
-          this.playAnimation(this.IMAGES_WALKING);
-        }
+      } else if (this.checkSleeping()) {
+        this.playAnimation(this.IMAGES_SLEEPING);
+        
+      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        this.playAnimation(this.IMAGES_WALKING);
       }
-    }, 50);
+    }, 100);
   }
+
+  checkSleeping() {
+    const now = Date.now();
+
+    // Check if any movement keys are pressed
+    if (
+      this.world.keyboard.RIGHT ||
+      this.world.keyboard.LEFT ||
+      this.world.keyboard.SPACE
+    ) {
+      this.lastMovement = now; // Update last movement time
+      return false;
+    }
+
+    // Initialize lastMovement if not set
+    if (!this.lastMovement) {
+      this.lastMovement = now;
+      return false;
+    }
+
+    // Check if character has been idle for more than 3 seconds (3000ms)
+    return now - this.lastMovement > 100;
+  }
+
+
 }
+
+

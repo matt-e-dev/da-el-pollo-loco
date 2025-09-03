@@ -165,11 +165,13 @@ class World {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
       if (endboss && bottle.isCollidingForEndboss(endboss)) {
         this.playBossHurtSound();
-        endboss.hit(40);
+        endboss.hit(25);
         this.bossStatusBar.setPercentage(endboss.energy);
       }
     });
   }
+
+  
 
   checkCollectableCollisions() {
     this.collectableObjects.forEach((collectable, index) => {
