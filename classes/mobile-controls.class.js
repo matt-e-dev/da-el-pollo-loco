@@ -44,9 +44,11 @@ class MobileControls extends DrawableObject {
   }
 
   shouldDisplayControls() {
-    return window.innerWidth <= 760;
+    const canvas = document.getElementById("canvas");
+    if (!canvas) return false;
+    // Use getBoundingClientRect for actual rendered width
+    return canvas.getBoundingClientRect().width <= 640;
   }
-
   draw(ctx) {
     if (this.shouldDisplayControls()) {
       this.buttons.forEach((btn) => {
