@@ -170,12 +170,6 @@ class World {
     this.playEnemyKilledSound();
   }
 
-  // playEnemyKilledSound() {
-  //   let killedSound = new Audio("assets/audio/enemy-killed.mp3");
-  //   killedSound.volume = 0.1;
-  //   killedSound.play();
-  // }
-
   checkBossCollidingWithThrowableObject() {
     this.throwableObjects.forEach((bottle) => {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
@@ -210,6 +204,24 @@ class World {
       bottle.y + bottle.height + padding > enemy.y &&
       bottle.y - padding < enemy.y + enemy.height
     );
+  }
+
+  generateCoins() {
+    // Generate 8 coins at random positions
+    for (let i = 0; i < 8; i++) {
+      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
+      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
+      this.collectableObjects.push(new Coin(randomX, randomY));
+    }
+  }
+
+  generateBottles() {
+    // Generate 8 bottles at random positions
+    for (let i = 0; i < 8; i++) {
+      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
+      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
+      this.collectableObjects.push(new Bottle(randomX, randomY));
+    }
   }
 
   checkCollectableCollisions() {
@@ -318,23 +330,11 @@ class World {
     this.generateBottles();
   }
 
-  generateCoins() {
-    // Generate 8 coins at random positions
-    for (let i = 0; i < 8; i++) {
-      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
-      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
-      this.collectableObjects.push(new Coin(randomX, randomY));
-    }
-  }
-
-  generateBottles() {
-    // Generate 8 bottles at random positions
-    for (let i = 0; i < 8; i++) {
-      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
-      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
-      this.collectableObjects.push(new Bottle(randomX, randomY));
-    }
-  }
+  // playEnemyKilledSound() {
+  //   let killedSound = new Audio("assets/audio/enemy-killed.mp3");
+  //   killedSound.volume = 0.1;
+  //   killedSound.play();
+  // }
 }
 
 

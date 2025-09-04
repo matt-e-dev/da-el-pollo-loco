@@ -8,7 +8,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height:90vh;
+  height:100vh;
+  overflow:hidden;
   background-image: url("assets/background.png");
   background-position: center;
   background-size: cover;
@@ -133,7 +134,7 @@ h1 {
 }
 
 /* Show rotation message on screens smaller than 760px */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 760px) and (orientation: portrait) {
   .rotate-screen {
     display: flex !important;
   }
@@ -163,7 +164,7 @@ h1 {
     font-size: 18px;
     gap: 20px;
     padding: 16px;
-    flex-direction: column;
+  
   }
 
   .btn {
