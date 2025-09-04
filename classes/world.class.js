@@ -27,30 +27,6 @@ class World {
     this.run();
   }
 
-  randomizeCollectablePositions() {
-    this.collectableObjects = [];
-    this.generateCoins();
-    this.generateBottles();
-  }
-
-  generateCoins() {
-    // Generate 8 coins at random positions
-    for (let i = 0; i < 8; i++) {
-      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
-      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
-      this.collectableObjects.push(new Coin(randomX, randomY));
-    }
-  }
-
-  generateBottles() {
-    // Generate 8 bottles at random positions
-    for (let i = 0; i < 8; i++) {
-      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
-      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
-      this.collectableObjects.push(new Bottle(randomX, randomY));
-    }
-  }
-
   setWorld() {
     this.character.world = this;
   }
@@ -59,24 +35,37 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
 
+    this.drawWorld();
+    this.drawUI();
+    this.drawMobileControls();
+    this.continueDrawing();
+  }
+
+  drawWorld() {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.triggerEndbossAttack();
-
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.collectableObjects);
+  }
 
-    this.ctx.translate(-this.camera_x, 0); //back
+  drawUI() {
+    this.ctx.translate(-this.camera_x, 0); // back
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.bottlesStatusBar);
     this.addToMap(this.coinStatusBar);
     this.showBossStatusBar();
-    this.addToMap(this.mobileControls);
-    this.ctx.translate(this.camera_x, 0); //forward
-    this.ctx.translate(-this.camera_x, 0);
+  }
 
+  drawMobileControls() {
+    this.addToMap(this.mobileControls);
+    this.ctx.translate(this.camera_x, 0); // forward
+    this.ctx.translate(-this.camera_x, 0);
+  }
+
+  continueDrawing() {
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
@@ -108,7 +97,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -150,14 +139,41 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
+    this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit(10);
-        this.playCharacterHurtSound();
-        this.healthStatusBar.setPercentage(this.character.energy);
+        if (this.isJumpingOnEnemy(enemy)) {
+          this.killEnemyByJump(index);
+        } else {
+          this.character.hit(5);
+          this.playCharacterHurtSound();
+          this.healthStatusBar.setPercentage(this.character.energy);
+        }
       }
     });
   }
+
+  isJumpingOnEnemy(enemy) {
+    const jumpPadding = 45; // Generous padding for easier head-jumping
+    const characterBottom = this.character.y + this.character.height;
+    const enemyTop = enemy.y;
+    return (
+      characterBottom - jumpPadding < enemyTop + jumpPadding &&
+      this.character.speedY < 0 &&
+      !(enemy instanceof Endboss)
+    );
+  }
+
+  killEnemyByJump(enemyIndex) {
+    this.level.enemies.splice(enemyIndex, 1);
+    this.character.jump(); // Make character bounce up
+    this.playEnemyKilledSound();
+  }
+
+  // playEnemyKilledSound() {
+  //   let killedSound = new Audio("assets/audio/enemy-killed.mp3");
+  //   killedSound.volume = 0.1;
+  //   killedSound.play();
+  // }
 
   checkBossCollidingWithThrowableObject() {
     this.throwableObjects.forEach((bottle) => {
@@ -281,4 +297,30 @@ class World {
     wonSound.volume = 0.1;
     wonSound.play();
   }
+
+  randomizeCollectablePositions() {
+    this.collectableObjects = [];
+    this.generateCoins();
+    this.generateBottles();
+  }
+
+  generateCoins() {
+    // Generate 8 coins at random positions
+    for (let i = 0; i < 8; i++) {
+      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
+      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
+      this.collectableObjects.push(new Coin(randomX, randomY));
+    }
+  }
+
+  generateBottles() {
+    // Generate 8 bottles at random positions
+    for (let i = 0; i < 8; i++) {
+      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
+      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
+      this.collectableObjects.push(new Bottle(randomX, randomY));
+    }
+  }
 }
+
+
