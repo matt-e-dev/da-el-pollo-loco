@@ -31,7 +31,26 @@ function startGame() {
 }
 
 function restartGame() {
-  location.reload();
+  clearAllIntervals(); 
+
+  document.getElementById("end_screen").classList.add("d-none");
+  document.getElementById("win_message").classList.add("d-none");
+  document.getElementById("lose_message").classList.add("d-none");
+  document.getElementById("try_again_btn").classList.add("d-none");
+
+  document.getElementById("game_container").style.display = "block";
+
+  if (backgroundMusic) {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    backgroundMusic = null;
+  }
+
+  init();
+}
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 function playBackgroundMusic() {
