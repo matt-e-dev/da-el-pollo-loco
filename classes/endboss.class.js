@@ -9,6 +9,7 @@ class Endboss extends MoveableObject {
   surpriseSoundPlayed = false;
   battleMusicPlayed = false;
 
+
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
     "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -70,16 +71,15 @@ class Endboss extends MoveableObject {
 
   startAttack() {
     this.isAttacking = true;
-    if (!this.surpriseSoundPlayed ) {
+    if (!this.surpriseSoundPlayed) {
       this.playSurpriseSound();
       this.surpriseSoundPlayed = true;
     }
   }
   playSurpriseSound() {
+    if (!soundEnabled) return;
     let surpriseSound = new Audio("assets/audio/surprise.mp3");
     surpriseSound.volume = 0.1;
     surpriseSound.play();
   }
-
-
 }

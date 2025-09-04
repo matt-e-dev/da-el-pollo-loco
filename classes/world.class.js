@@ -1,3 +1,4 @@
+
 class World {
   character = new Character();
   level = level1;
@@ -263,39 +264,52 @@ class World {
   }
 
   playCharacterHurtSound() {
-    let hurtSound = new Audio("assets/audio/character-hurt.mp3");
+    if (!soundEnabled) return;
+    let hurtSound = new Audio(sounds.characterHurt);
     hurtSound.volume = 0.1;
     hurtSound.play();
   }
 
   playBottleCollectedSound() {
-    let collectSound = new Audio("assets/audio/bottle-collected.mp3");
+    if (!soundEnabled) return;
+    let collectSound = new Audio(sounds.bottleCollected);
     collectSound.volume = 0.1;
     collectSound.play();
   }
 
   playCoinCollectedSound() {
-    let collectSound = new Audio("assets/audio/coin-collected.mp3");
+    if (!soundEnabled) return;
+    let collectSound = new Audio(sounds.coinCollected);
     collectSound.volume = 0.1;
     collectSound.play();
   }
 
   playBossHurtSound() {
-    let hurtSound = new Audio("assets/audio/boss-hurt.mp3");
+    if (!soundEnabled) return;
+    let hurtSound = new Audio(sounds.bossHurt);
     hurtSound.volume = 0.1;
     hurtSound.play();
   }
 
   playGameLostSound() {
-    let lostSound = new Audio("assets/audio/game-lost.mp3");
+    if (!soundEnabled) return;
+    let lostSound = new Audio(sounds.gameLost);
     lostSound.volume = 0.1;
     lostSound.play();
   }
 
   playGameWonSound() {
-    let wonSound = new Audio("assets/audio/game-won.mp3");
+    if (!soundEnabled) return;
+    let wonSound = new Audio(sounds.gameWon);
     wonSound.volume = 0.1;
     wonSound.play();
+  }
+
+  playEnemyKilledSound() {
+    if (!soundEnabled) return;
+    let killedSound = new Audio(sounds.enemyKilled);
+    killedSound.volume = 0.1;
+    killedSound.play();
   }
 
   randomizeCollectablePositions() {
@@ -322,5 +336,7 @@ class World {
     }
   }
 }
+
+
 
 

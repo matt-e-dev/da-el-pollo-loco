@@ -2,6 +2,20 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let backgroundMusic;
+let soundEnabled = true;
+
+const sounds = {
+  jump: "assets/audio/jump.mp3",
+  characterHurt: "assets/audio/character-hurt.mp3",
+  bottleCollected: "assets/audio/bottle-collected.mp3",
+  coinCollected: "assets/audio/coin-collected.mp3",
+  bossHurt: "assets/audio/boss-hurt.mp3",
+  gameLost: "assets/audio/game-lost.mp3",
+  gameWon: "assets/audio/game-won.mp3",
+  enemyKilled: "assets/audio/enemy-killed.mp3",
+  backgroundMusic: "assets/audio/background-music.mp3",
+};
+
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -21,10 +35,22 @@ function restartGame() {
 }
 
 function playBackgroundMusic() {
-  backgroundMusic = new Audio("assets/audio/background-music.mp3"); // Remove 'let'
+  backgroundMusic = new Audio(sounds.backgroundMusic);
   backgroundMusic.loop = true;
   backgroundMusic.volume = 0.1;
   backgroundMusic.play();
+}
+
+// Add this function globally (outside the class)
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+
+  if (!soundEnabled && backgroundMusic) {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+  } else if (soundEnabled && backgroundMusic) {
+    backgroundMusic.play();
+  }
 }
 
 window.addEventListener("keydown", (e) => {});

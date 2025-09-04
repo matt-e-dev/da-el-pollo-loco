@@ -83,6 +83,7 @@ class Character extends MoveableObject {
   }
 
   playJumpSound() {
+    if (!soundEnabled) return; // Only play if sound is enabled
     let jumpSound = new Audio("assets/audio/jump.mp3");
     jumpSound.volume = 0.1;
     jumpSound.play();
