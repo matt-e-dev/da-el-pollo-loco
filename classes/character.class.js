@@ -17,6 +17,19 @@ class Character extends MoveableObject {
     "./img/2_character_pepe/1_idle/long_idle/I-19.png",
     "./img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
+
+  IMAGES_IDLE = [
+    "img/2_character_pepe/1_idle/idle/I-1.png",
+    "img/2_character_pepe/1_idle/idle/I-2.png",
+    "img/2_character_pepe/1_idle/idle/I-3.png",
+    "img/2_character_pepe/1_idle/idle/I-4.png",
+    "img/2_character_pepe/1_idle/idle/I-5.png",
+    "img/2_character_pepe/1_idle/idle/I-6.png",
+    "img/2_character_pepe/1_idle/idle/I-7.png",
+    "img/2_character_pepe/1_idle/idle/I-8.png",
+    "img/2_character_pepe/1_idle/idle/I-9.png",
+    "img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",
@@ -60,6 +73,7 @@ class Character extends MoveableObject {
     super();
     this.loadImage("img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_SLEEPING);
+    this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
@@ -99,15 +113,43 @@ class Character extends MoveableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
+      } else if (this.checkIdle()) {
+        this.playAnimation(this.IMAGES_IDLE);
       } else if (this.checkSleeping()) {
         this.playAnimation(this.IMAGES_SLEEPING);
-        
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 100);
   }
 
+  checkIdle() {
+    const now = Date.now();
+
+    // Check if any movement keys are pressed
+    if (
+      this.world.keyboard.RIGHT ||
+      this.world.keyboard.LEFT ||
+      this.world.keyboard.SPACE
+    ) {
+      this.lastMovement = now;
+      return false;
+    }
+
+    if (!this.lastMovement) {
+      this.lastMovement = now;
+      return false;
+    }
+
+    // If idle for more than 4 seconds, play sleeping animation
+    if (now - this.lastMovement > 4000) {
+      this.playAnimation(this.IMAGES_SLEEPING);
+      return false; // Prevent idle animation from playing
+    }
+
+    // Idle after 1 second (1000ms)
+    return now - this.lastMovement > 1000;
+  }
   checkSleeping() {
     const now = Date.now();
 
@@ -117,21 +159,18 @@ class Character extends MoveableObject {
       this.world.keyboard.LEFT ||
       this.world.keyboard.SPACE
     ) {
-      this.lastMovement = now; // Update last movement time
+      this.lastMovement = now;
       return false;
     }
 
-    // Initialize lastMovement if not set
     if (!this.lastMovement) {
       this.lastMovement = now;
       return false;
     }
 
-    // Check if character has been idle for more than 3 seconds (3000ms)
-    return now - this.lastMovement > 100;
+    // Sleeping after 5 seconds (5000ms)
+    return now - this.lastMovement > 5000;
   }
-
-
 }
 
 
