@@ -42,16 +42,20 @@
     <button id="try_again_btn" class="btn" onclick="restartGame()">Try Again</button>
 </div>
 
-<button onclick="toggleSound()" class="btn">Mute/Unmute Sound</button>
-
 <div class="rotate-screen">
     <h2>Please rotate your device</h2>
     <p>This game works best on larger screens or in landscape mode</p>
 </div>
 
-    <div id="game_container" class="d-none">
-        <canvas id="canvas" width="720" height="480"></canvas>
-    </div>
+<div id="game_container" class="d-none" style="position: relative;">
+    <button 
+        id="toggle-sound-btn" 
+        class="btn sound-btn" 
+        onclick="toggleSound()">
+        <span id="sound-icon">🔊</span>
+    </button>
+    <canvas id="canvas" width="720" height="480"></canvas>
+</div>
    
 
     <script src="classes/drawable-objects.class.js"></script>
