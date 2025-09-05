@@ -25,8 +25,8 @@ function init() {
 }
 
 function startGame() {
-  document.getElementById("start_screen").style.display = "none";
-  document.getElementById("game_container").style.display = "block";
+  document.getElementById("start_screen").classList.add("d-none");
+  document.getElementById("game_container").classList.remove("d-none");
   init();
 }
 
@@ -38,7 +38,7 @@ function restartGame() {
   document.getElementById("lose_message").classList.add("d-none");
   document.getElementById("try_again_btn").classList.add("d-none");
 
-  document.getElementById("game_container").style.display = "block";
+  document.getElementById("game_container").classList.remove("d-none");
 
   if (backgroundMusic) {
     backgroundMusic.pause();
@@ -46,7 +46,7 @@ function restartGame() {
     backgroundMusic = null;
   }
 
-  init();
+  init()
 }
 
 function clearAllIntervals() {
