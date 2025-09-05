@@ -38,7 +38,7 @@ class SmallChicken extends MoveableObject {
   }
 
   isOnGround() {
-    return this.y >= 400;
+    return this.y >= 330;
   }
 
   applyGravity() {
