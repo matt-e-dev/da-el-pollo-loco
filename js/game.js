@@ -2,7 +2,11 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let backgroundMusic;
-let soundEnabled = true;
+// Load sound setting from localStorage, default to true if not set
+let soundEnabled =
+  localStorage.getItem("soundEnabled") !== null
+    ? localStorage.getItem("soundEnabled") === "true"
+    : true;
 
 const sounds = {
   jump: "assets/audio/jump.mp3",
@@ -16,14 +20,27 @@ const sounds = {
   backgroundMusic: "assets/audio/background-music.mp3",
 };
 
+// Initialize sound icon on page load
+function initSoundIcon() {
+  const soundIcon = document.getElementById("sound-icon");
+  if (soundIcon) {
+    soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+  }
+}
 
 function init() {
   canvas = document.getElementById("canvas");
   initLevel();
-  playBackgroundMusic();
+
+  // Only play background music if sound is enabled
+  if (soundEnabled) {
+    playBackgroundMusic();
+  }
+
+  initSoundIcon(); // Update sound icon when game starts
 
   world = new World(canvas, keyboard);
-    addMobileControlListeners();
+  addMobileControlListeners();
 }
 
 function startGame() {
@@ -33,7 +50,7 @@ function startGame() {
 }
 
 function restartGame() {
-  clearAllIntervals(); 
+  clearAllIntervals();
 
   document.getElementById("end_screen").classList.add("d-none");
   document.getElementById("win_message").classList.add("d-none");
@@ -48,7 +65,7 @@ function restartGame() {
     backgroundMusic = null;
   }
 
-  init()
+  init();
 }
 
 function clearAllIntervals() {
@@ -66,13 +83,27 @@ function playBackgroundMusic() {
 function toggleSound() {
   soundEnabled = !soundEnabled;
 
+  // Save to localStorage
+  localStorage.setItem("soundEnabled", soundEnabled);
+
+  // Update icon
+  const soundIcon = document.getElementById("sound-icon");
+  if (soundIcon) {
+    soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+  }
+
   if (!soundEnabled && backgroundMusic) {
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
-  } else if (soundEnabled && backgroundMusic) {
-    backgroundMusic.play();
+    backgroundMusic = null; // Clear the reference
+  } else if (soundEnabled && !backgroundMusic) {
+    // Start music if sound was just enabled and no music is playing
+    playBackgroundMusic();
   }
 }
+
+// Initialize sound icon on page load
+document.addEventListener("DOMContentLoaded", initSoundIcon);
 
 window.addEventListener("keydown", (e) => {});
 
@@ -117,4 +148,3 @@ window.addEventListener("keyup", (e) => {
     keyboard.D = false;
   }
 });
-
