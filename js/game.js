@@ -18,6 +18,7 @@ const sounds = {
   gameWon: "assets/audio/game-won.mp3",
   enemyKilled: "assets/audio/enemy-killed.mp3",
   backgroundMusic: "assets/audio/background-music.mp3",
+  playEnemyKilledSound: "assets/audio/wilhelm.mp3",
 };
 
 // Initialize sound icon on page load
