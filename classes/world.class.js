@@ -143,7 +143,12 @@ class World {
         if (this.isJumpingOnEnemy(enemy)) {
           this.killEnemyByJump(index);
         } else {
-          this.character.hit(5);
+          // Different damage based on enemy type
+          if (enemy instanceof Endboss) {
+            this.character.hit(50); // Endboss deals massive damage
+          } else {
+            this.character.hit(5); // Normal enemies deal small damage
+          }
           this.playCharacterHurtSound();
           this.healthStatusBar.setPercentage(this.character.energy);
         }
@@ -224,7 +229,10 @@ class World {
 
   checkCollectableCollisions() {
     this.collectableObjects.forEach((collectable, index) => {
-      if (this.character.isColliding(collectable) && !collectable.collected) {
+      if (
+        this.isCollidingWithCollectable(collectable) &&
+        !collectable.collected
+      ) {
         collectable.collect();
         if (collectable instanceof Coin) {
           this.playCoinCollectedSound();
@@ -237,6 +245,16 @@ class World {
         this.collectableObjects.splice(index, 1);
       }
     });
+  }
+
+  isCollidingWithCollectable(collectable) {
+    const padding = 15;
+    return (
+      this.character.x + this.character.width + padding > collectable.x &&
+      this.character.x - padding < collectable.x + collectable.width &&
+      this.character.y + this.character.height + padding > collectable.y &&
+      this.character.y - padding < collectable.y + collectable.height
+    );
   }
 
   //win or lose endscreen conditions
@@ -328,11 +346,11 @@ class World {
     this.generateBottles();
   }
 
-  // playEnemyKilledSound() {
-  //   let killedSound = new Audio("assets/audio/enemy-killed.mp3");
-  //   killedSound.volume = 0.1;
-  //   killedSound.play();
-  // }
+  playEnemyKilledSound() {
+    let killedSound = new Audio("assets/audio/wilhelm.mp3");
+    killedSound.volume = 0.1;
+    killedSound.play();
+  }
 }
 
 

@@ -37,7 +37,7 @@ function init() {
     playBackgroundMusic();
   }
 
-  initSoundIcon(); // Update sound icon when game starts
+  initSoundIcon(); // Update sound icon when game startsall
 
   world = new World(canvas, keyboard);
   addMobileControlListeners();
