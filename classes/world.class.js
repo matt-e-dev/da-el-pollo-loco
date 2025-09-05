@@ -14,7 +14,6 @@ class World {
   bottlesStatusBar = new BottlesStatusBar();
   coinStatusBar = new CoinStatusBar();
   bossStatusBar = new BossStatusBar();
-  mobileControls = new MobileControls();
   throwableObjects = [];
   bottleCount = 0;
 
@@ -38,7 +37,6 @@ class World {
 
     this.drawWorld();
     this.drawUI();
-    this.drawMobileControls();
     this.continueDrawing();
   }
 
