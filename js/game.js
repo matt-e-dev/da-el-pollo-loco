@@ -60,6 +60,7 @@ function restartGame() {
 
   document.getElementById("game_container").classList.remove("d-none");
 
+
   if (backgroundMusic) {
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;

@@ -193,7 +193,7 @@ h1 {
 }
 
 /* Show rotation message on screens smaller than 760px */
-@media screen and (max-width: 760px) and (orientation: portrait) {
+@media screen and (max-width: 940px) and (orientation: portrait) {
   .rotate-screen {
     display: flex !important;
   }
@@ -204,7 +204,7 @@ h1 {
 }
 
 /* Mobile responsive adjustments */
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 940px) {
   #canvas,
   .start-screen,
   .end-screen {
@@ -226,6 +226,10 @@ h1 {
   .btn {
     font-size: 24px;
     padding: 12px 32px;
+  }
+
+  #mobile-controls {
+    display: block !important;
   }
 }
 

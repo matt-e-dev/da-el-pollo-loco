@@ -193,6 +193,7 @@ class World {
         ) {
           this.level.enemies.splice(enemyIndex, 1); // Remove enemy
           this.throwableObjects.splice(bottleIndex, 1); // Remove bottle
+          this.playEnemyKilledSound();
         }
       });
     });
@@ -274,6 +275,7 @@ class World {
     document.getElementById("end_screen").classList.remove("d-none");
     document.getElementById("win_message").classList.remove("d-none");
     document.getElementById("lose_message").classList.add("d-none");
+    document.getElementById("try_again_btn").classList.remove("d-none"); // <-- Show button
     if (!this.gameWon) {
       this.playGameWonSound();
       this.gameWon = true;
@@ -285,6 +287,7 @@ class World {
     document.getElementById("end_screen").classList.remove("d-none");
     document.getElementById("lose_message").classList.remove("d-none");
     document.getElementById("win_message").classList.add("d-none");
+    document.getElementById("try_again_btn").classList.remove("d-none"); // <-- Show button
     if (!this.gameLost) {
       this.playGameLostSound();
       this.gameLost = true;
