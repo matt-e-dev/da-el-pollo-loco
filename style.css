@@ -14,7 +14,11 @@ body {
   background-position: center;
   background-size: cover;
   box-sizing: border-box;
-  margin-bottom:20px;
+  margin-bottom:40px;
+}
+
+#game_container {
+  margin-bottom: 60px; /* or whatever fits your mobile controls */
 }
 
 h1 {
@@ -220,6 +224,7 @@ h1 {
     font-size: 18px;
     gap: 20px;
     padding: 16px;
+    margin-bottom:60px;
   
   }
 
