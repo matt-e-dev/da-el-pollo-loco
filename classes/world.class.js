@@ -336,13 +336,6 @@ class World {
     wonSound.play();
   }
 
-  playEnemyKilledSound() {
-    if (!soundEnabled) return;
-    let killedSound = new Audio(sounds.enemyKilled);
-    killedSound.volume = 0.1;
-    killedSound.play();
-  }
-
   randomizeCollectablePositions() {
     this.collectableObjects = [];
     this.generateCoins();
@@ -350,6 +343,7 @@ class World {
   }
 
   playEnemyKilledSound() {
+    if (!soundEnabled) return; // Add this line!
     let killedSound = new Audio("assets/audio/wilhelm.mp3");
     killedSound.volume = 0.1;
     killedSound.play();
