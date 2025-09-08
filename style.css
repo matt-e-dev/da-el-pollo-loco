@@ -209,7 +209,7 @@ h1 {
 }
 
 /* Mobile responsive adjustments */
-@media only screen and (max-width: 940px) {
+@media only screen and (max-width: 1100px) {
   #canvas,
   .start-screen,
   .end-screen {
@@ -245,4 +245,15 @@ h1 {
   .end-screen {
     height: 80vh; /* Also use 80vh for short screens */
   }
+}
+
+.impressum-btn {
+  margin-top: 16px;
+  font-family: "tacobox", sans-serif;
+  font-size: 24px;
+}
+
+.impressum-btn a {
+  color: black;
+  text-decoration: none;
 }

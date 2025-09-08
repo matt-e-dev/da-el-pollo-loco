@@ -38,6 +38,8 @@ function init() {
     playBackgroundMusic();
   }
 
+    hideImpressum();
+
   initSoundIcon(); // Update sound icon when game startsall
 
   world = new World(canvas, keyboard);
@@ -47,7 +49,15 @@ function init() {
 function startGame() {
   document.getElementById("start_screen").classList.add("d-none");
   document.getElementById("game_container").classList.remove("d-none");
+
   init();
+}
+
+function hideImpressum() {
+  const impressum = document.getElementById("impressum_btn");
+  if (impressum) {
+    impressum.classList.add("d-none");
+  }
 }
 
 function restartGame() {
