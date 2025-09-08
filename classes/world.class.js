@@ -118,15 +118,23 @@ class World {
   }
 
   run() {
+    // High frequency checks (every 16ms ≈ 60 FPS)
     setInterval(() => {
-      this.checkCollisions();
-      this.checkThrowableObjects();
       this.checkBottleCollisions();
       this.checkCoinCollisions();
+    }, 20);
+
+    setInterval(() => {
+      this.checkEnemyCollisions();
+      this.checkThrowableObjects();
       this.checkBossCollidingWithThrowableObject();
       this.checkNormalEnemiesCollidingWithThrowableObject();
+    }, 150);
+
+    // Low frequency checks (every 100ms)
+    setInterval(() => {
       this.checkGameEnd();
-    }, 50);
+    }, 200);
   }
 
   checkThrowableObjects() {
@@ -141,7 +149,7 @@ class World {
     }
   }
 
-  checkCollisions() {
+  checkEnemyCollisions() {
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
         if (this.isJumpingOnEnemy(enemy)) {
@@ -218,7 +226,7 @@ class World {
     // Randomize bottle positions
     this.bottles.forEach((bottle) => {
       const randomX = 300 + Math.random() * 3200;
-      const randomY = 180 + Math.random() * 140;
+      const randomY = 80 + Math.random() * 100;
       bottle.x = randomX;
       bottle.y = randomY;
     });
@@ -226,13 +234,12 @@ class World {
     // Randomize coin positions
     this.coins.forEach((coin) => {
       const randomX = 300 + Math.random() * 3200;
-      const randomY = 180 + Math.random() * 140;
+      const randomY = 180 + Math.random() * 160;
       coin.x = randomX;
       coin.y = randomY;
     });
   }
 
-  // Update checkBottleCollisions() to use this.bottles:
   checkBottleCollisions() {
     this.bottles
       .filter(
@@ -250,7 +257,6 @@ class World {
       });
   }
 
-  // Update checkCoinCollisions() to use this.coins:
   checkCoinCollisions() {
     this.coins
       .filter((coin) => this.character.isColliding(coin) && !coin.collected)
