@@ -1,9 +1,10 @@
 class Character extends MoveableObject {
-  height = 250
+  height = 250;
   y = 180;
   x = 120;
   speed = 10;
   energy = 100;
+  offset = { top: 100, bottom: 15, left: 20, right: 20 };
 
   IMAGES_SLEEPING = [
     "./img/2_character_pepe/1_idle/long_idle/I-11.png",
@@ -80,7 +81,6 @@ class Character extends MoveableObject {
     this.loadImages(this.IMAGES_HURT);
     this.animate();
     this.applyGravity();
-
   }
 
   playJumpSound() {
