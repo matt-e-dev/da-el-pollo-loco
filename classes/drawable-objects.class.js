@@ -29,11 +29,11 @@ class DrawableObject {
   drawOffsetFrame(ctx) {
     if (
       this instanceof Coin ||
-      // this instanceof SmallChicken ||
-      // this instanceof Chicken ||
+      this instanceof SmallChicken ||
+      this instanceof Chicken ||
       this instanceof Character ||
-      this instanceof Bottle 
-      // this instanceof Endboss
+      this instanceof Bottle ||
+      this instanceof Endboss
     ) {
       const xPos = this.x + this.offset.left;
       const yPos = this.y + this.offset.top;

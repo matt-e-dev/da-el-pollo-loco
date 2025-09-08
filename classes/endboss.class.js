@@ -8,7 +8,7 @@ class Endboss extends MoveableObject {
   energy = 100;
   surpriseSoundPlayed = false;
   battleMusicPlayed = false;
-
+  offset = { top: 100, bottom: 15, left: 20, right: 20 };
 
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",

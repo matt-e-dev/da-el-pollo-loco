@@ -1,6 +1,7 @@
 class SmallChicken extends MoveableObject {
   height = 50;
   width = 50;
+  offset = { top: 50, bottom: 40, left: 30, right: 30 };
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
     "img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -13,7 +14,7 @@ class SmallChicken extends MoveableObject {
 
     this.moveLeft();
     this.speed = 0.15 * Math.random() * 5;
-    this.x = 700 + Math.random() * 3000; 
+    this.x = 700 + Math.random() * 3000;
     this.y = 400;
     this.animate();
     this.loadImages(this.IMAGES_WALKING);
@@ -22,7 +23,7 @@ class SmallChicken extends MoveableObject {
 
   animate() {
     setInterval(() => {
-      this.moveLeft()
+      this.moveLeft();
       if (Math.random() < 0.2 && this.isOnGround()) {
         this.jump();
       }
