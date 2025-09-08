@@ -25,7 +25,6 @@ class World {
     this.setWorld();
     this.draw();
     this.run();
-   
   }
 
   setWorld() {
@@ -39,7 +38,6 @@ class World {
     this.drawWorld();
     this.drawUI();
     this.continueDrawing();
-  
   }
 
   drawWorld() {
@@ -125,7 +123,7 @@ class World {
       this.checkBossCollidingWithThrowableObject();
       this.checkNormalEnemiesCollidingWithThrowableObject(); // Add this line
       this.checkGameEnd();
-    }, 200);
+    }, 50);
   }
 
   checkThrowableObjects() {
@@ -233,10 +231,7 @@ class World {
 
   checkCollectableCollisions() {
     this.collectableObjects.forEach((collectable, index) => {
-      if (
-        this.isCollidingWithCollectable(collectable) &&
-        !collectable.collected
-      ) {
+      if (this.character.isColliding(collectable) && !collectable.collected) {
         collectable.collect();
         if (collectable instanceof Coin) {
           this.playCoinCollectedSound();
@@ -250,17 +245,6 @@ class World {
       }
     });
   }
-
-  isCollidingWithCollectable(collectable) {
-    const padding = 15;
-    return (
-      this.character.x + this.character.width + padding > collectable.x &&
-      this.character.x - padding < collectable.x + collectable.width &&
-      this.character.y + this.character.height + padding > collectable.y &&
-      this.character.y - padding < collectable.y + collectable.height
-    );
-  }
-
   //win or lose endscreen conditions
 
   checkGameEnd() {
