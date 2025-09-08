@@ -119,7 +119,7 @@ class Character extends MoveableObject {
         this.playJumpSound();
       }
       this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+    }, 1800 / 60);
 
     setInterval(() => {
       if (this.isDead()) {
@@ -135,7 +135,7 @@ class Character extends MoveableObject {
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
       }
-    }, 100);
+    }, 200);
   }
 
   /**

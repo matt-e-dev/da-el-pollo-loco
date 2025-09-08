@@ -186,7 +186,7 @@ class World {
     setInterval(() => {
       this.checkBottleCollisions();
       this.checkCoinCollisions();
-    }, 20);
+    });
 
     setInterval(() => {
       this.checkEnemyCollisions();
@@ -216,15 +216,22 @@ class World {
     }
   }
 
+
   /**
    * Checks collisions between the character and normal enemies.
    */
   checkEnemyCollisions() {
-    this.level.enemies.forEach((enemy, index) => {
-      if (enemy instanceof Endboss) return;
+    this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        if (this.isJumpingOnEnemy(enemy)) {
-          this.killEnemyByJump(index);
+        if (this.character.isAboveGround() && this.character.speedY < 0) {
+          setTimeout(() => {
+            let index = this.level.enemies.indexOf(enemy);
+            if (index > -1) {
+              this.level.enemies.splice(index, 1);
+               this.character.jump();
+               this.playEnemyKilledSound();
+            }
+          }, 200);
         } else {
           this.character.hit(5);
           this.playCharacterHurtSound();
@@ -233,7 +240,6 @@ class World {
       }
     });
   }
-
   /**
    * Checks collision between the character and the endboss.
    */
@@ -251,16 +257,6 @@ class World {
    * @param {DrawableObject} enemy - The enemy object.
    * @returns {boolean} True if jumping on enemy, else false.
    */
-  isJumpingOnEnemy(enemy) {
-    const jumpPadding = 45; // Generous padding for easier head-jumping
-    const characterBottom = this.character.y + this.character.height;
-    const enemyTop = enemy.y;
-    return (
-      characterBottom - jumpPadding < enemyTop + jumpPadding &&
-      this.character.speedY < 0 &&
-      !(enemy instanceof Endboss)
-    );
-  }
 
   /**
    * Removes an enemy by index and makes the character bounce.
@@ -268,8 +264,7 @@ class World {
    */
   killEnemyByJump(enemyIndex) {
     this.level.enemies.splice(enemyIndex, 1);
-    this.character.jump(); 
-    this.playEnemyKilledSound();
+   
   }
 
   /**
@@ -282,8 +277,8 @@ class World {
           !(enemy instanceof Endboss) &&
           this.isBottleHittingEnemy(bottle, enemy)
         ) {
-          this.level.enemies.splice(enemyIndex, 1); 
-          this.throwableObjects.splice(bottleIndex, 1); 
+          this.level.enemies.splice(enemyIndex, 1);
+          this.throwableObjects.splice(bottleIndex, 1);
           this.playEnemyKilledSound();
         }
       });

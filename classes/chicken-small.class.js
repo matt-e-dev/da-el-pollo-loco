@@ -36,11 +36,11 @@ class SmallChicken extends MoveableObject {
       if (Math.random() < 0.2 && this.isOnGround()) {
         this.jump();
       }
-    }, 1000 / 60);
+    }, 1800 / 60);
 
     setInterval(() => {
       this.playAnimation(this.IMAGES_WALKING);
-    }, 100);
+    }, 200);
   }
 
   /**
