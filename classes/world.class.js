@@ -1,10 +1,11 @@
-
 class World {
   character = new Character();
   level = level1;
   enemies = level1.enemies;
   clouds = level1.clouds;
   backgroundObjects = level1.backgroundObjects;
+  bottles = level1.bottles;
+  coins = level1.coins;
   energy = 100;
   canvas;
   ctx;
@@ -47,7 +48,8 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.triggerEndbossAttack();
     this.addObjectsToMap(this.throwableObjects);
-    this.addObjectsToMap(this.collectableObjects);
+    this.addObjectsToMap(this.bottles); // Draw bottles
+    this.addObjectsToMap(this.coins); // Draw coins
   }
 
   drawUI() {
@@ -119,9 +121,10 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowableObjects();
-      this.checkCollectableCollisions();
+      this.checkBottleCollisions();
+      this.checkCoinCollisions();
       this.checkBossCollidingWithThrowableObject();
-      this.checkNormalEnemiesCollidingWithThrowableObject(); // Add this line
+      this.checkNormalEnemiesCollidingWithThrowableObject();
       this.checkGameEnd();
     }, 50);
   }
@@ -211,40 +214,57 @@ class World {
     );
   }
 
-  generateCoins() {
-    // Generate 8 coins at random positions
-    for (let i = 0; i < 8; i++) {
-      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
-      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
-      this.collectableObjects.push(new Coin(randomX, randomY));
-    }
-  }
+  randomizeCollectablePositions() {
+    // Randomize bottle positions
+    this.bottles.forEach((bottle) => {
+      const randomX = 300 + Math.random() * 3200;
+      const randomY = 180 + Math.random() * 140;
+      bottle.x = randomX;
+      bottle.y = randomY;
+    });
 
-  generateBottles() {
-    // Generate 8 bottles at random positions
-    for (let i = 0; i < 8; i++) {
-      const randomX = 300 + Math.random() * 3200; // Between 300 and 3500
-      const randomY = 180 + Math.random() * 140; // Between 180 and 320 (above ground)
-      this.collectableObjects.push(new Bottle(randomX, randomY));
-    }
-  }
-
-  checkCollectableCollisions() {
-    this.collectableObjects.forEach((collectable, index) => {
-      if (this.character.isColliding(collectable) && !collectable.collected) {
-        collectable.collect();
-        if (collectable instanceof Coin) {
-          this.playCoinCollectedSound();
-          this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
-        } else if (collectable instanceof Bottle) {
-          this.playBottleCollectedSound();
-          this.bottleCount++;
-          this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
-        }
-        this.collectableObjects.splice(index, 1);
-      }
+    // Randomize coin positions
+    this.coins.forEach((coin) => {
+      const randomX = 300 + Math.random() * 3200;
+      const randomY = 180 + Math.random() * 140;
+      coin.x = randomX;
+      coin.y = randomY;
     });
   }
+
+  // Update checkBottleCollisions() to use this.bottles:
+  checkBottleCollisions() {
+    this.bottles
+      .filter(
+        (bottle) => this.character.isColliding(bottle) && !bottle.collected
+      )
+      .forEach((bottle) => {
+        bottle.collect();
+        this.playBottleCollectedSound();
+        this.bottleCount++;
+        this.bottlesStatusBar.setPercentage((this.bottleCount / 5) * 100);
+
+        // Remove from bottles array
+        const index = this.bottles.indexOf(bottle);
+        this.bottles.splice(index, 1);
+      });
+  }
+
+  // Update checkCoinCollisions() to use this.coins:
+  checkCoinCollisions() {
+    this.coins
+      .filter((coin) => this.character.isColliding(coin) && !coin.collected)
+      .forEach((coin) => {
+        coin.collect();
+        this.playCoinCollectedSound();
+        this.coinStatusBar.setPercentage(this.coinStatusBar.percentage + 20);
+
+        // Remove from coins array
+        const index = this.coins.indexOf(coin);
+        this.coins.splice(index, 1);
+      });
+  }
+
   //win or lose endscreen conditions
 
   checkGameEnd() {
@@ -323,12 +343,6 @@ class World {
     wonSound.play();
   }
 
-  randomizeCollectablePositions() {
-    this.collectableObjects = [];
-    this.generateCoins();
-    this.generateBottles();
-  }
-
   playEnemyKilledSound() {
     if (!soundEnabled) return; // Add this line!
     let killedSound = new Audio("assets/audio/wilhelm.mp3");
@@ -336,7 +350,3 @@ class World {
     killedSound.play();
   }
 }
-
-
-
-
