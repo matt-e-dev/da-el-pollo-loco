@@ -1,3 +1,7 @@
+/**
+ * Represents a drawable object in the game world.
+ * Provides basic drawing and image loading functionality.
+ */
 class DrawableObject {
   img;
   imageCache = {};
@@ -7,10 +11,19 @@ class DrawableObject {
   width = 150;
   height = 100;
 
+  /**
+   * Draws the object's image on the canvas.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  /**
+   * Draws a blue frame around the object for debugging.
+   * Only applies to certain object types.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   drawFrame(ctx) {
     if (
       this instanceof Character ||
@@ -26,6 +39,11 @@ class DrawableObject {
     }
   }
 
+  /**
+   * Draws a red offset frame for collision debugging.
+   * Only applies to certain object types.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   drawOffsetFrame(ctx) {
     if (
       this instanceof Coin ||
@@ -48,11 +66,19 @@ class DrawableObject {
     }
   }
 
+  /**
+   * Loads a single image for the object.
+   * @param {string} path - The path to the image file.
+   */
   loadImage(path) {
-    this.img = new Image(); // this.img = document.getElementByIdlement("image"); <img id= "image" srx>
+    this.img = new Image();
     this.img.src = path;
   }
 
+  /**
+   * Loads multiple images into the image cache.
+   * @param {string[]} arr - Array of image file paths.
+   */
   loadImages(arr) {
     arr.forEach((path) => {
       let img = new Image();

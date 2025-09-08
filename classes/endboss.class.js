@@ -1,3 +1,7 @@
+/**
+ * Represents the endboss enemy in the game.
+ * Extends MoveableObject and handles movement, animation, attacking, and sounds.
+ */
 class Endboss extends MoveableObject {
   height = 500;
   width = 300;
@@ -44,6 +48,9 @@ class Endboss extends MoveableObject {
     "img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
+  /**
+   * Creates a new Endboss and loads all animation images.
+   */
   constructor() {
     super();
     this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
@@ -54,6 +61,9 @@ class Endboss extends MoveableObject {
     this.animate();
   }
 
+  /**
+   * Handles endboss movement and animation updates.
+   */
   animate() {
     setInterval(() => {
       if (this.energy === 0) {
@@ -69,6 +79,9 @@ class Endboss extends MoveableObject {
     }, 100);
   }
 
+  /**
+   * Starts the endboss attack and plays the surprise sound once.
+   */
   startAttack() {
     this.isAttacking = true;
     if (!this.surpriseSoundPlayed) {
@@ -76,6 +89,10 @@ class Endboss extends MoveableObject {
       this.surpriseSoundPlayed = true;
     }
   }
+
+  /**
+   * Plays the surprise sound effect.
+   */
   playSurpriseSound() {
     if (!soundEnabled) return;
     let surpriseSound = new Audio("assets/audio/surprise.mp3");

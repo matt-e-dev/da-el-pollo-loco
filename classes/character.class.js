@@ -1,3 +1,7 @@
+/**
+ * Represents the main character in the game.
+ * Extends MoveableObject and handles movement, animation, and sounds.
+ */
 class Character extends MoveableObject {
   height = 250;
   y = 180;
@@ -31,6 +35,7 @@ class Character extends MoveableObject {
     "img/2_character_pepe/1_idle/idle/I-9.png",
     "img/2_character_pepe/1_idle/idle/I-10.png",
   ];
+
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",
@@ -70,6 +75,9 @@ class Character extends MoveableObject {
   currentImage = 0;
   world;
 
+  /**
+   * Creates a new Character and loads all animation images.
+   */
   constructor() {
     super();
     this.loadImage("img/2_character_pepe/2_walk/W-21.png");
@@ -83,13 +91,19 @@ class Character extends MoveableObject {
     this.applyGravity();
   }
 
+  /**
+   * Plays the jump sound effect.
+   */
   playJumpSound() {
-    if (!soundEnabled) return; // Only play if sound is enabled
+    if (!soundEnabled) return;
     let jumpSound = new Audio("assets/audio/jump.mp3");
     jumpSound.volume = 0.1;
     jumpSound.play();
   }
 
+  /**
+   * Handles character movement and animation updates.
+   */
   animate() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -100,7 +114,6 @@ class Character extends MoveableObject {
         this.moveLeft();
         this.otherDirection = true;
       }
-
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
         this.playJumpSound();
@@ -125,10 +138,12 @@ class Character extends MoveableObject {
     }, 100);
   }
 
+  /**
+   * Checks if the character is idle.
+   * @returns {boolean} True if idle, else false.
+   */
   checkIdle() {
     const now = Date.now();
-
-    // Check if any movement keys are pressed
     if (
       this.world.keyboard.RIGHT ||
       this.world.keyboard.LEFT ||
@@ -137,25 +152,23 @@ class Character extends MoveableObject {
       this.lastMovement = now;
       return false;
     }
-
     if (!this.lastMovement) {
       this.lastMovement = now;
       return false;
     }
-
-    // If idle for more than 4 seconds, play sleeping animation
     if (now - this.lastMovement > 4000) {
       this.playAnimation(this.IMAGES_SLEEPING);
-      return false; // Prevent idle animation from playing
+      return false;
     }
-
-    // Idle after 1 second (1000ms)
     return now - this.lastMovement > 1;
   }
+
+  /**
+   * Checks if the character should play the sleeping animation.
+   * @returns {boolean} True if sleeping, else false.
+   */
   checkSleeping() {
     const now = Date.now();
-
-    // Check if any movement keys are pressed
     if (
       this.world.keyboard.RIGHT ||
       this.world.keyboard.LEFT ||
@@ -164,15 +177,10 @@ class Character extends MoveableObject {
       this.lastMovement = now;
       return false;
     }
-
     if (!this.lastMovement) {
       this.lastMovement = now;
       return false;
     }
-
-    // Sleeping after 5 seconds (5000ms)
     return now - this.lastMovement > 5000;
   }
 }
-
-

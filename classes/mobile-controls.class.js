@@ -1,4 +1,7 @@
-// Add event listeners in your init() function
+/**
+ * Adds event listeners for mobile controls to update keyboard state.
+ * Should be called during game initialization.
+ */
 function addMobileControlListeners() {
   const buttons = {
     "btn-left": "LEFT",
