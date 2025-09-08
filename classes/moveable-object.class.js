@@ -48,11 +48,23 @@ class MoveableObject extends DrawableObject {
 
   // character.isColliding(chicken);
   isColliding(mo) {
+    const a = {
+      left: this.x + (this.offset?.left || 0),
+      right: this.x + this.width - (this.offset?.right || 0),
+      top: this.y + (this.offset?.top || 0),
+      bottom: this.y + this.height - (this.offset?.bottom || 0),
+    };
+    const b = {
+      left: mo.x + (mo.offset?.left || 0),
+      right: mo.x + mo.width - (mo.offset?.right || 0),
+      top: mo.y + (mo.offset?.top || 0),
+      bottom: mo.y + mo.height - (mo.offset?.bottom || 0),
+    };
     return (
-      this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-      this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+      a.right > b.left &&
+      a.left < b.right &&
+      a.bottom > b.top &&
+      a.top < b.bottom
     );
   }
 
