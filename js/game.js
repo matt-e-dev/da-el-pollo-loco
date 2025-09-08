@@ -1,13 +1,23 @@
+/**
+ * Main game script for initializing and controlling the game state, sound, and input.
+ */
+
 let canvas;
 let world;
 let keyboard = new Keyboard();
 let backgroundMusic;
-// Load sound setting from localStorage, default to true if not set
+/**
+ * Indicates whether sound is enabled. Loaded from localStorage, defaults to true.
+ * @type {boolean}
+ */
 let soundEnabled =
   localStorage.getItem("soundEnabled") !== null
     ? localStorage.getItem("soundEnabled") === "true"
     : true;
 
+/**
+ * Object containing all sound file paths used in the game.
+ */
 const sounds = {
   jump: "assets/audio/jump.mp3",
   characterHurt: "assets/audio/character-hurt.mp3",
@@ -21,7 +31,9 @@ const sounds = {
   playEnemyKilledSound: "assets/audio/wilhelm.mp3",
 };
 
-// Initialize sound icon on page load
+/**
+ * Initializes the sound icon on the page based on the sound setting.
+ */
 function initSoundIcon() {
   const soundIcon = document.getElementById("sound-icon");
   if (soundIcon) {
@@ -29,61 +41,9 @@ function initSoundIcon() {
   }
 }
 
-function init() {
-  canvas = document.getElementById("canvas");
-  initLevel();
-
-  // Only play background music if sound is enabled
-  if (soundEnabled) {
-    playBackgroundMusic();
-  }
-
-    hideImpressum();
-
-  initSoundIcon(); // Update sound icon when game startsall
-
-  world = new World(canvas, keyboard);
-  addMobileControlListeners();
-}
-
-function startGame() {
-  document.getElementById("start_screen").classList.add("d-none");
-  document.getElementById("game_container").classList.remove("d-none");
-
-  init();
-}
-
-function hideImpressum() {
-  const impressum = document.getElementById("impressum_btn");
-  if (impressum) {
-    impressum.classList.add("d-none");
-  }
-}
-
-function restartGame() {
-  clearAllIntervals();
-
-  document.getElementById("end_screen").classList.add("d-none");
-  document.getElementById("win_message").classList.add("d-none");
-  document.getElementById("lose_message").classList.add("d-none");
-  document.getElementById("try_again_btn").classList.add("d-none");
-
-  document.getElementById("game_container").classList.remove("d-none");
-
-
-  if (backgroundMusic) {
-    backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
-    backgroundMusic = null;
-  }
-
-  init();
-}
-
-function clearAllIntervals() {
-  for (let i = 1; i < 9999; i++) window.clearInterval(i);
-}
-
+/**
+ * Plays the background music in a loop.
+ */
 function playBackgroundMusic() {
   backgroundMusic = new Audio(sounds.backgroundMusic);
   backgroundMusic.loop = true;
@@ -91,34 +51,90 @@ function playBackgroundMusic() {
   backgroundMusic.play();
 }
 
-// Add this function globally (outside the class)
+/**
+ * Toggles the sound setting and updates localStorage and the sound icon.
+ */
 function toggleSound() {
   soundEnabled = !soundEnabled;
-
-  // Save to localStorage
   localStorage.setItem("soundEnabled", soundEnabled);
-
-  // Update icon
   const soundIcon = document.getElementById("sound-icon");
   if (soundIcon) {
     soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
   }
-
   if (!soundEnabled && backgroundMusic) {
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
-    backgroundMusic = null; // Clear the reference
+    backgroundMusic = null;
   } else if (soundEnabled && !backgroundMusic) {
-    // Start music if sound was just enabled and no music is playing
     playBackgroundMusic();
   }
+}
+
+/**
+ * Initializes the game, level, sound, and controls.
+ */
+function init() {
+  canvas = document.getElementById("canvas");
+  initLevel();
+  if (soundEnabled) {
+    playBackgroundMusic();
+  }
+  hideImpressum();
+  initSoundIcon();
+  world = new World(canvas, keyboard);
+  addMobileControlListeners();
+}
+
+/**
+ * Starts the game and shows the game container.
+ */
+function startGame() {
+  document.getElementById("start_screen").classList.add("d-none");
+  document.getElementById("game_container").classList.remove("d-none");
+  init();
+}
+
+/**
+ * Hides the impressum button.
+ */
+function hideImpressum() {
+  const impressum = document.getElementById("impressum_btn");
+  if (impressum) {
+    impressum.classList.add("d-none");
+  }
+}
+
+/**
+ * Clears all active intervals in the game.
+ */
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+/**
+ * Restarts the game and resets the UI and music.
+ */
+function restartGame() {
+  clearAllIntervals();
+  document.getElementById("end_screen").classList.add("d-none");
+  document.getElementById("win_message").classList.add("d-none");
+  document.getElementById("lose_message").classList.add("d-none");
+  document.getElementById("try_again_btn").classList.add("d-none");
+  document.getElementById("game_container").classList.remove("d-none");
+  if (backgroundMusic) {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    backgroundMusic = null;
+  }
+  init();
 }
 
 // Initialize sound icon on page load
 document.addEventListener("DOMContentLoaded", initSoundIcon);
 
-window.addEventListener("keydown", (e) => {});
-
+/**
+ * Handles keyboard keydown events and updates the keyboard state.
+ */
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = true;
@@ -140,6 +156,9 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+/**
+ * Handles keyboard keyup events and updates the keyboard state.
+ */
 window.addEventListener("keyup", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = false;
