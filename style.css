@@ -149,7 +149,8 @@ h1 {
 #btn-jump { right: 20px; }
 
 
-.btn {
+.btn,
+.impressum-btn{
   font-family: "tacobox", sans-serif;
   font-size: clamp(20px, 4vw, 32px);
   border: none;
@@ -158,12 +159,22 @@ h1 {
   cursor: pointer;
 }
 
-
 .btn:hover,
 .btn:focus {
   transform: scale(1.05);
   background-color: red;
 }
+
+.impressum-btn:hover {
+  transform: scale(1.05);
+  background-color: red;
+}
+
+.impressum-btn a {
+  color: black;
+  text-decoration: none;
+}
+
 
 /* Rotation prompt for screens smaller than 760px */
 .rotate-screen {
@@ -269,13 +280,3 @@ h1 {
   }
 }
 
-.impressum-btn {
-  margin-top: 16px;
-  font-family: "tacobox", sans-serif;
-  font-size: 24px;
-}
-
-.impressum-btn a {
-  color: black;
-  text-decoration: none;
-}
