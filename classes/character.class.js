@@ -1,6 +1,6 @@
 class Character extends MoveableObject {
-  height = 250;
-  y = 80;
+  height = 250
+  y = 180;
   x = 120;
   speed = 10;
   energy = 100;
@@ -80,6 +80,7 @@ class Character extends MoveableObject {
     this.loadImages(this.IMAGES_HURT);
     this.animate();
     this.applyGravity();
+
   }
 
   playJumpSound() {
@@ -149,7 +150,7 @@ class Character extends MoveableObject {
     }
 
     // Idle after 1 second (1000ms)
-    return now - this.lastMovement > 1000;
+    return now - this.lastMovement > 1;
   }
   checkSleeping() {
     const now = Date.now();
