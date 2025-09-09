@@ -24,47 +24,47 @@ class DrawableObject {
    * Only applies to certain object types.
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
-  drawFrame(ctx) {
-    if (
-      this instanceof Character ||
-      this instanceof Chicken ||
-      this instanceof Endboss ||
-      this instanceof CollectableObject
-    ) {
-      ctx.beginPath();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
+  // drawFrame(ctx) {
+  //   if (
+  //     this instanceof Character ||
+  //     this instanceof Chicken ||
+  //     this instanceof Endboss ||
+  //     this instanceof CollectableObject
+  //   ) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = 5;
+  //     ctx.strokeStyle = "blue";
+  //     ctx.rect(this.x, this.y, this.width, this.height);
+  //     ctx.stroke();
+  //   }
+  // }
 
   /**
    * Draws a red offset frame for collision debugging.
    * Only applies to certain object types.
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
-  drawOffsetFrame(ctx) {
-    if (
-      this instanceof Coin ||
-      this instanceof SmallChicken ||
-      this instanceof Chicken ||
-      this instanceof Character ||
-      this instanceof Bottle ||
-      this instanceof Endboss
-    ) {
-      const xPos = this.x + this.offset.left;
-      const yPos = this.y + this.offset.top;
-      const width = this.width - this.offset.left - this.offset.right;
-      const height = this.height - this.offset.top - this.offset.bottom;
+  // drawOffsetFrame(ctx) {
+  //   if (
+  //     this instanceof Coin ||
+  //     this instanceof SmallChicken ||
+  //     this instanceof Chicken ||
+  //     this instanceof Character ||
+  //     this instanceof Bottle ||
+  //     this instanceof Endboss
+  //   ) {
+  //     const xPos = this.x + this.offset.left;
+  //     const yPos = this.y + this.offset.top;
+  //     const width = this.width - this.offset.left - this.offset.right;
+  //     const height = this.height - this.offset.top - this.offset.bottom;
 
-      ctx.beginPath();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "red";
-      ctx.rect(xPos, yPos, width, height);
-      ctx.stroke();
-    }
-  }
+  //     ctx.beginPath();
+  //     ctx.lineWidth = 5;
+  //     ctx.strokeStyle = "red";
+  //     ctx.rect(xPos, yPos, width, height);
+  //     ctx.stroke();
+  //   }
+  // }
 
   /**
    * Loads a single image for the object.

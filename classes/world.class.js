@@ -111,6 +111,9 @@ class World {
 
   /**
    * Adds a single object to the map, handling direction and frames.
+   *  // mo.drawFrame(this.ctx);
+    // mo.drawOffsetFrame(this.ctx);
+    add those for debugging after  mo.draw(this.ctx);
    * @param {DrawableObject} mo - The drawable object.
    */
   addToMap(mo) {
@@ -118,8 +121,6 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
-    mo.drawOffsetFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -173,7 +174,7 @@ class World {
       const endboss = this.level.enemies.find((e) => e instanceof Endboss);
       if (endboss && bottle.isCollidingForEndboss(endboss)) {
         this.playBossHurtSound();
-        endboss.hit(5);
+        endboss.hit(4);
         this.bossStatusBar.setPercentage(endboss.energy);
       }
     });
@@ -184,13 +185,12 @@ class World {
    */
   run() {
     setInterval(() => {
+      this.checkEnemyCollisions();
       this.checkBottleCollisions();
       this.checkCoinCollisions();
-      this.checkEnemyCollisions();
     });
 
     setInterval(() => {
-    
       this.checkEndbossCollision();
       this.checkThrowableObjects();
       this.checkBossCollidingWithThrowableObject();
@@ -217,24 +217,31 @@ class World {
     }
   }
 
+  /**
+   * Handles jump kill: removes enemy, makes character jump, plays sound.
+   * @param {Object} enemy - The enemy object to remove.
+   */
+  handleJumpKill(enemy) {
+    let index = this.level.enemies.indexOf(enemy);
+    if (index > -1) {
+      this.level.enemies.splice(index, 1);
+      this.character.jump();
+      this.playEnemyKilledSound();
+    }
+  }
 
   /**
-   * Checks collisions between the character and normal enemies.
+   *enemy collision detection and handling.
    */
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        if (this.character.isAboveGround() && this.character.speedY < 10) {
+      if (this.character.isColliding(enemy) && !(enemy instanceof Endboss)) {
+        if (this.character.isAboveGround() && this.character.speedY < 5) {
           setTimeout(() => {
-            let index = this.level.enemies.indexOf(enemy);
-            if (index > -1) {
-              this.level.enemies.splice(index, 1);
-               this.character.jump();
-               this.playEnemyKilledSound();
-            }
+            this.handleJumpKill(enemy);
           }, 20);
         } else {
-          this.character.hit(1);
+          this.character.hit(0.2);
           this.playCharacterHurtSound();
           this.healthStatusBar.setPercentage(this.character.energy);
         }
@@ -265,7 +272,6 @@ class World {
    */
   killEnemyByJump(enemyIndex) {
     this.level.enemies.splice(enemyIndex, 1);
-   
   }
 
   /**

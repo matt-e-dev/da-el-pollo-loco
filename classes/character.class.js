@@ -156,7 +156,7 @@ class Character extends MoveableObject {
       this.lastMovement = now;
       return false;
     }
-    if (now - this.lastMovement > 4000) {
+    if (now - this.lastMovement > 10000) {
       this.playAnimation(this.IMAGES_SLEEPING);
       return false;
     }

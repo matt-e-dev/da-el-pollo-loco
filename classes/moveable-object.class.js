@@ -7,9 +7,9 @@ class MoveableObject extends DrawableObject {
   width = 100;
   speed = 0.15;
   otherDirection = false;
-  speedY = 0; // Vertical speed for gravity
-  acceleration = 0.5; // Acceleration due to gravity
-  lastHit = 0; // Timestamp of the last hit
+  speedY = 0; 
+  acceleration = 0.6; 
+  lastHit = 0; 
 
   /**
    * Applies gravity to the object, updating its vertical position and speed.
