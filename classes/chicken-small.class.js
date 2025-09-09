@@ -33,7 +33,7 @@ class SmallChicken extends MoveableObject {
   animate() {
     setInterval(() => {
       this.moveLeft();
-      if (Math.random() < 0.2 && this.isOnGround()) {
+      if (Math.random() < 0.2 && this.y >= 380 - this.height) {
         this.jump();
       }
     }, 1800 / 60);

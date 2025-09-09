@@ -181,6 +181,6 @@ class Character extends MoveableObject {
       this.lastMovement = now;
       return false;
     }
-    return now - this.lastMovement > 5000;
+    return now - this.lastMovement > 10000;
   }
 }

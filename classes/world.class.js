@@ -186,15 +186,16 @@ class World {
     setInterval(() => {
       this.checkBottleCollisions();
       this.checkCoinCollisions();
+      this.checkEnemyCollisions();
     });
 
     setInterval(() => {
-      this.checkEnemyCollisions();
+    
       this.checkEndbossCollision();
       this.checkThrowableObjects();
       this.checkBossCollidingWithThrowableObject();
       this.checkNormalEnemiesCollidingWithThrowableObject();
-    }, 50);
+    }, 120);
 
     setInterval(() => {
       this.checkGameEnd();
@@ -223,7 +224,7 @@ class World {
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        if (this.character.isAboveGround()) {
+        if (this.character.isAboveGround() && this.character.speedY < 10) {
           setTimeout(() => {
             let index = this.level.enemies.indexOf(enemy);
             if (index > -1) {
@@ -233,7 +234,7 @@ class World {
             }
           }, 20);
         } else {
-          this.character.hit(5);
+          this.character.hit(1);
           this.playCharacterHurtSound();
           this.healthStatusBar.setPercentage(this.character.energy);
         }
