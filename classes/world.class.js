@@ -194,7 +194,7 @@ class World {
       this.checkThrowableObjects();
       this.checkBossCollidingWithThrowableObject();
       this.checkNormalEnemiesCollidingWithThrowableObject();
-    }, 150);
+    }, 50);
 
     setInterval(() => {
       this.checkGameEnd();
@@ -223,7 +223,7 @@ class World {
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        if (this.character.isAboveGround() && this.character.speedY < 0) {
+        if (this.character.isAboveGround()) {
           setTimeout(() => {
             let index = this.level.enemies.indexOf(enemy);
             if (index > -1) {
@@ -231,7 +231,7 @@ class World {
                this.character.jump();
                this.playEnemyKilledSound();
             }
-          }, 200);
+          }, 20);
         } else {
           this.character.hit(5);
           this.playCharacterHurtSound();
