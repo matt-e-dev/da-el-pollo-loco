@@ -8,7 +8,7 @@ class Endboss extends MoveableObject {
   y = -30;
   x = 3500;
   isAttacking = false;
-  speed = 20;
+  speed = 15;
   energy = 100;
   surpriseSoundPlayed = false;
   battleMusicPlayed = false;

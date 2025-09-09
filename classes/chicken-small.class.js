@@ -3,8 +3,8 @@
  * Extends MoveableObject and handles movement, animation, and jumping.
  */
 class SmallChicken extends MoveableObject {
-  height = 50;
-  width = 50;
+  height = 60;
+  width = 60;
   offset = { top: 50, bottom: 40, left: 30, right: 30 };
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -21,7 +21,7 @@ class SmallChicken extends MoveableObject {
     this.moveLeft();
     this.speed = 0.15 * Math.random() * 5;
     this.x = 700 + Math.random() * 3000;
-    this.y = 500 - this.height;
+    this.y = 600 - this.height;
     this.animate();
     this.loadImages(this.IMAGES_WALKING);
     this.applyGravity();
@@ -33,7 +33,7 @@ class SmallChicken extends MoveableObject {
   animate() {
     setInterval(() => {
       this.moveLeft();
-      if (Math.random() < 0.2 && this.y >= 380 - this.height) {
+      if (Math.random() < 0.2 && this.y >= 440 - this.height) {
         this.jump();
       }
     }, 1800 / 60);
@@ -55,7 +55,7 @@ class SmallChicken extends MoveableObject {
    * @returns {boolean} True if on ground, else false.
    */
   isOnGround() {
-    return this.y >= 400;
+    return this.y >= 450;
   }
 
   /**
