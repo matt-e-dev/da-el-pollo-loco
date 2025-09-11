@@ -105,6 +105,14 @@ class Character extends MoveableObject {
    * Handles character movement and animation updates.
    */
   animate() {
+    this.startMovementInterval();
+    this.startAnimationInterval();
+  }
+
+  /**
+   * Handles character movement and camera updates.
+   */
+  startMovementInterval() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -120,7 +128,12 @@ class Character extends MoveableObject {
       }
       this.world.camera_x = -this.x + 100;
     }, 1800 / 60);
+  }
 
+  /**
+   * Handles character animation updates.
+   */
+  startAnimationInterval() {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
@@ -137,7 +150,6 @@ class Character extends MoveableObject {
       }
     }, 200);
   }
-
   /**
    * Checks if the character is idle.
    * @returns {boolean} True if idle, else false.

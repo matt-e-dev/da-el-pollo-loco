@@ -313,31 +313,12 @@ class World {
    * Randomizes the positions of bottle and coin collectables.
    */
   randomizeCollectablePositions() {
-    // Helper to check if a bottle is at least minDist away from all others
-    function isFarEnough(x, y, bottles, minDist) {
-      return bottles.every(
-        (bottle) => Math.hypot(bottle.x - x, bottle.y - y) >= minDist
-      );
-    }
-
-    const minDist = 25;
-    this.bottles.forEach((bottle, i) => {
-      let tries = 0;
-      let randomX, randomY;
-      do {
-        randomX = 300 + Math.random() * 3200;
-        randomY = 80 + Math.random() * 100;
-        tries++;
-        // Only check against already placed bottles
-      } while (
-        i > 0 &&
-        !isFarEnough(randomX, randomY, this.bottles.slice(0, i), minDist) &&
-        tries < 100
-      );
+    this.bottles.forEach((bottle) => {
+      const randomX = 300 + Math.random() * 3200;
+      const randomY = 80 + Math.random() * 100;
       bottle.x = randomX;
       bottle.y = randomY;
     });
-
     this.coins.forEach((coin) => {
       const randomX = 300 + Math.random() * 3200;
       const randomY = 180 + Math.random() * 160;
