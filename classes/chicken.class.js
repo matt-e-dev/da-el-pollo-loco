@@ -3,8 +3,8 @@
  * Extends MoveableObject and handles movement and animation.
  */
 class Chicken extends MoveableObject {
-  height = 80;
-  width = 60;
+  height = 90;
+  width = 70;
   offset = { top: 30, bottom: 100, left: 30, right: 30 };
 
   IMAGES_WALKING = [

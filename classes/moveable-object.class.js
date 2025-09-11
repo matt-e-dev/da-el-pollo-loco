@@ -53,7 +53,7 @@ class MoveableObject extends DrawableObject {
    * Makes the object jump by setting its vertical speed.
    */
   jump() {
-    this.speedY = 15;
+    this.speedY = 14;
   }
 
   /**
