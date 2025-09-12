@@ -261,12 +261,6 @@ class World {
   }
 
   /**
-   * Determines if the character is jumping on an enemy for a jump kill.
-   * @param {DrawableObject} enemy - The enemy object.
-   * @returns {boolean} True if jumping on enemy, else false.
-   */
-
-  /**
    * Removes an enemy by index and makes the character bounce.
    * @param {number} enemyIndex - Index of the enemy to remove.
    */
